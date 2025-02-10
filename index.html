@@ -135,6 +135,58 @@
         .notification.show {
             transform: translateX(0);
         }
+        .newsletter-card {
+            background: linear-gradient(135deg, #2b6cb0 0%, #1a365d 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 32px;
+            color: white;
+            text-align: left;
+        }
+        .newsletter-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .newsletter-description {
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+        .newsletter-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: #2b6cb0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .newsletter-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: #f7fafc;
+        }
+        .newsletter-features {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9em;
+            color: #e2e8f0;
+        }
         @media (max-width: 480px) {
             .container {
                 padding: 30px 20px;
@@ -169,6 +221,30 @@
             <input type="url" id="url" name="url" required placeholder="https://github.com/usuario/repositorio">
             <button type="submit" id="submit-btn">Enviar</button>
         </form>
+
+        <div class="newsletter-card">
+            <div class="newsletter-title">
+                <span class="emoji">📬</span>
+                <span id="newsletter-title-text">¿Te interesa el Open Source y el No-Code?</span>
+            </div>
+            <div class="newsletter-features">
+                <div class="feature">
+                    <span class="emoji">✨</span>
+                    <span id="feature-1-text">Recursos semanales</span>
+                </div>
+                <div class="feature">
+                    <span class="emoji">🎯</span>
+                    <span id="feature-2-text">Tutoriales</span>
+                </div>
+            </div>
+            <p class="newsletter-description" id="newsletter-description-text">
+                Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.
+            </p>
+            <a href="https://nocodeopensource.io/" target="_blank" rel="noopener" class="newsletter-link">
+                <span class="emoji">🔥</span>
+                <span id="newsletter-cta-text">Suscríbete Gratis</span>
+            </a>
+        </div>
     </div>
 
     <div class="notification" id="thankYou">
@@ -182,19 +258,34 @@
                 urlLabel: "Introduce la URL de GitHub:",
                 submitText: "Enviar",
                 errorMsg: "❌ Solo se permiten URLs de GitHub.",
-                thankYou: "¡Gracias por tu contribución!"
+                thankYou: "¡Gracias por tu contribución!",
+                newsletterTitle: "¿Te interesa el Open Source y el No-Code?",
+                feature1: "Recursos semanales",
+                feature2: "Tutoriales",
+                newsletterDescription: "Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.",
+                newsletterCTA: "Suscríbete Gratis"
             },
             it: {
                 urlLabel: "Inserisci l'URL di GitHub:",
                 submitText: "Invia",
                 errorMsg: "❌ Sono consentiti solo URL di GitHub.",
-                thankYou: "Grazie per il tuo contributo!"
+                thankYou: "Grazie per il tuo contributo!",
+                newsletterTitle: "Ti interessano Open Source e No-Code?",
+                feature1: "Risorse settimanali",
+                feature2: "Tutorial",
+                newsletterDescription: "Unisciti alla nostra newsletter e scopri come combinare la potenza dell'Open Source con strumenti No-Code.",
+                newsletterCTA: "Iscriviti Gratis"
             },
             en: {
                 urlLabel: "Enter the GitHub URL:",
                 submitText: "Send",
                 errorMsg: "❌ Only GitHub URLs are allowed.",
-                thankYou: "Thank you for your contribution!"
+                thankYou: "Thank you for your contribution!",
+                newsletterTitle: "Interested in Open Source and No-Code?",
+                feature1: "Weekly resources",
+                feature2: "Tutorials",
+                newsletterDescription: "Join our newsletter and discover how to combine the power of Open Source with No-Code tools.",
+                newsletterCTA: "Subscribe Free"
             }
         };
 
@@ -203,6 +294,13 @@
             document.getElementById('label-url').textContent = translations[selectedLang].urlLabel;
             document.getElementById('submit-btn').textContent = translations[selectedLang].submitText;
             document.getElementById('thank-message').textContent = translations[selectedLang].thankYou;
+            
+            // Actualizar textos del newsletter
+            document.getElementById('newsletter-title-text').textContent = translations[selectedLang].newsletterTitle;
+            document.getElementById('feature-1-text').textContent = translations[selectedLang].feature1;
+            document.getElementById('feature-2-text').textContent = translations[selectedLang].feature2;
+            document.getElementById('newsletter-description-text').textContent = translations[selectedLang].newsletterDescription;
+            document.getElementById('newsletter-cta-text').textContent = translations[selectedLang].newsletterCTA;
         });
 
         document.getElementById('urlForm').addEventListener('submit', async function(event) {
