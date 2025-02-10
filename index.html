@@ -119,7 +119,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 16px 24px;
+            padding: 20px 24px;
             background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
             color: white;
             border-radius: 12px;
@@ -129,11 +129,37 @@
             z-index: 1000;
             font-weight: 500;
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            min-width: 280px;
         }
         .notification.show {
             transform: translateX(0);
+        }
+        .share-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1DA1F2;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .share-button:hover {
+            background: #1a91da;
+            transform: translateY(-1px);
+        }
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .newsletter-card {
             background: linear-gradient(135deg, #2b6cb0 0%, #1a365d 100%);
@@ -200,7 +226,7 @@
                 right: 20px;
                 left: 20px;
                 text-align: center;
-                justify-content: center;
+                align-items: center;
             }
         }
     </style>
@@ -248,8 +274,14 @@
     </div>
 
     <div class="notification" id="thankYou">
-        <span class="emoji">✨</span>
-        <span id="thank-message">¡Gracias por tu contribución!</span>
+        <div class="notification-content">
+            <span class="emoji">✨</span>
+            <span id="thank-message">¡Gracias por tu contribución!</span>
+        </div>
+        <button class="share-button" id="share-button" onclick="shareOnTwitter()">
+            <span class="emoji">🐦</span>
+            <span id="share-text">Compartir TOP GIT</span>
+        </button>
     </div>
 
     <script>
@@ -263,7 +295,9 @@
                 feature1: "Recursos semanales",
                 feature2: "Tutoriales",
                 newsletterDescription: "Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.",
-                newsletterCTA: "Suscríbete Gratis"
+                newsletterCTA: "Suscríbete Gratis",
+                shareText: "Compartir TOP GIT",
+                tweetText: "🔥 ¡Descubrí TOP GIT! La mejor selección de repositorios de GitHub.\n\n💎 Joyas ocultas de código abierto\n⭐️ Proyectos trending\n🚀 Actualizado diariamente\n\n👇 ¡Únete a nuestra comunidad en Telegram!"
             },
             it: {
                 urlLabel: "Inserisci l'URL di GitHub:",
@@ -274,7 +308,9 @@
                 feature1: "Risorse settimanali",
                 feature2: "Tutorial",
                 newsletterDescription: "Unisciti alla nostra newsletter e scopri come combinare la potenza dell'Open Source con strumenti No-Code.",
-                newsletterCTA: "Iscriviti Gratis"
+                newsletterCTA: "Iscriviti Gratis",
+                shareText: "Condividi TOP GIT",
+                tweetText: "🔥 Ho scoperto TOP GIT! La migliore selezione di repository GitHub.\n\n💎 Gemme nascoste open source\n⭐️ Progetti trending\n🚀 Aggiornato quotidianamente\n\n👇 Unisciti alla nostra community su Telegram!"
             },
             en: {
                 urlLabel: "Enter the GitHub URL:",
@@ -285,15 +321,26 @@
                 feature1: "Weekly resources",
                 feature2: "Tutorials",
                 newsletterDescription: "Join our newsletter and discover how to combine the power of Open Source with No-Code tools.",
-                newsletterCTA: "Subscribe Free"
+                newsletterCTA: "Subscribe Free",
+                shareText: "Share TOP GIT",
+                tweetText: "🔥 Just discovered TOP GIT! The best curated GitHub repositories.\n\n💎 Hidden open source gems\n⭐️ Trending projects\n🚀 Daily updates\n\n👇 Join our Telegram community!"
             }
         };
+
+        function shareOnTwitter() {
+            const selectedLang = document.getElementById('language').value;
+            const tweetText = encodeURIComponent(translations[selectedLang].tweetText);
+            const telegramUrl = encodeURIComponent("https://t.me/addlist/_qLDfKLMzWZhN2M0");
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${telegramUrl}`;
+            window.open(twitterUrl, '_blank');
+        }
 
         document.getElementById('language').addEventListener('change', function() {
             const selectedLang = this.value;
             document.getElementById('label-url').textContent = translations[selectedLang].urlLabel;
             document.getElementById('submit-btn').textContent = translations[selectedLang].submitText;
             document.getElementById('thank-message').textContent = translations[selectedLang].thankYou;
+            document.getElementById('share-text').textContent = translations[selectedLang].shareText;
             
             // Actualizar textos del newsletter
             document.getElementById('newsletter-title-text').textContent = translations[selectedLang].newsletterTitle;
