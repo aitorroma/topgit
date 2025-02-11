@@ -199,7 +199,6 @@
         .newsletter-link:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            background: #f7fafc;
         }
         .newsletter-features {
             display: flex;
@@ -212,6 +211,73 @@
             gap: 6px;
             font-size: 0.9em;
             color: #e2e8f0;
+        }
+        /* Modal styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.show {
+            display: flex !important;
+        }
+        .share-modal {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: modalAppear 0.3s ease-out;
+            position: relative;
+            z-index: 10000;
+        }
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .share-modal h2 {
+            color: #2d3748;
+            margin: 0 0 16px 0;
+            font-size: 1.5em;
+        }
+        .share-modal p {
+            color: #4a5568;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .share-modal .share-button {
+            width: 100%;
+            justify-content: center;
+            padding: 12px 24px;
+            margin-bottom: 16px;
+        }
+        .share-modal .close-button {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            color: #718096;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .share-modal .close-button:hover {
+            color: #2d3748;
         }
         @media (max-width: 480px) {
             .container {
@@ -278,118 +344,159 @@
             <span class="emoji">✨</span>
             <span id="thank-message">¡Gracias por tu contribución!</span>
         </div>
-        <button class="share-button" id="share-button" onclick="shareOnTwitter()">
-            <span class="emoji">🐦</span>
-            <span id="share-text">Compartir TOP GIT</span>
+        <button onclick="shareOnTwitter()" class="share-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m.058 1l9.267 12.39L0 23.462h2.099l8.163-8.82l6.596 8.82H24l-9.788-13.087L22.892 1h-2.1l-7.517 8.122L7.2 1zm3.087 1.546h3.28l14.488 19.37h-3.28L3.145 2.547Z"/></svg>
+            Compartir TOP GIT
         </button>
     </div>
 
+    <!-- Modal de compartir -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="share-modal">
+            <h2>¡Gracias por contribuir! 🎉</h2>
+            <p>Comparte TOP GIT con tu comunidad y ayuda a otros desarrolladores a descubrir los mejores repositorios.</p>
+            <button onclick="openTwitterShare()" class="share-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m.058 1l9.267 12.39L0 23.462h2.099l8.163-8.82l6.596 8.82H24l-9.788-13.087L22.892 1h-2.1l-7.517 8.122L7.2 1zm3.087 1.546h3.28l14.488 19.37h-3.28L3.145 2.547Z"/></svg>
+                Compartir en X
+            </button>
+            <button onclick="closeShareModal()" class="close-button">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        const translations = {
-            es: {
-                urlLabel: "Introduce la URL de GitHub:",
-                submitText: "Enviar",
-                errorMsg: "❌ Solo se permiten URLs de GitHub.",
-                thankYou: "¡Gracias por tu contribución!",
-                newsletterTitle: "¿Te interesa el Open Source y el No-Code?",
-                feature1: "Recursos semanales",
-                feature2: "Tutoriales",
-                newsletterDescription: "Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.",
-                newsletterCTA: "Suscríbete Gratis",
-                shareText: "Compartir TOP GIT",
-                tweetText: "🔥 ¡Descubrí TOP GIT! La mejor selección de repositorios de GitHub.\n\n💎 Joyas ocultas de código abierto\n⭐️ Proyectos trending\n🚀 Actualizado diariamente\n\n👇 ¡Únete a nuestra comunidad en Telegram!"
-            },
-            it: {
-                urlLabel: "Inserisci l'URL di GitHub:",
-                submitText: "Invia",
-                errorMsg: "❌ Sono consentiti solo URL di GitHub.",
-                thankYou: "Grazie per il tuo contributo!",
-                newsletterTitle: "Ti interessano Open Source e No-Code?",
-                feature1: "Risorse settimanali",
-                feature2: "Tutorial",
-                newsletterDescription: "Unisciti alla nostra newsletter e scopri come combinare la potenza dell'Open Source con strumenti No-Code.",
-                newsletterCTA: "Iscriviti Gratis",
-                shareText: "Condividi TOP GIT",
-                tweetText: "🔥 Ho scoperto TOP GIT! La migliore selezione di repository GitHub.\n\n💎 Gemme nascoste open source\n⭐️ Progetti trending\n🚀 Aggiornato quotidianamente\n\n👇 Unisciti alla nostra community su Telegram!"
-            },
-            en: {
-                urlLabel: "Enter the GitHub URL:",
-                submitText: "Send",
-                errorMsg: "❌ Only GitHub URLs are allowed.",
-                thankYou: "Thank you for your contribution!",
-                newsletterTitle: "Interested in Open Source and No-Code?",
-                feature1: "Weekly resources",
-                feature2: "Tutorials",
-                newsletterDescription: "Join our newsletter and discover how to combine the power of Open Source with No-Code tools.",
-                newsletterCTA: "Subscribe Free",
-                shareText: "Share TOP GIT",
-                tweetText: "🔥 Just discovered TOP GIT! The best curated GitHub repositories.\n\n💎 Hidden open source gems\n⭐️ Trending projects\n🚀 Daily updates\n\n👇 Join our Telegram community!"
-            }
-        };
-
-        function shareOnTwitter() {
-            const selectedLang = document.getElementById('language').value;
-            const tweetText = encodeURIComponent(translations[selectedLang].tweetText);
-            const telegramUrl = encodeURIComponent("https://t.me/addlist/_qLDfKLMzWZhN2M0");
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${telegramUrl}`;
-            window.open(twitterUrl, '_blank');
-        }
-
-        document.getElementById('language').addEventListener('change', function() {
-            const selectedLang = this.value;
-            document.getElementById('label-url').textContent = translations[selectedLang].urlLabel;
-            document.getElementById('submit-btn').textContent = translations[selectedLang].submitText;
-            document.getElementById('thank-message').textContent = translations[selectedLang].thankYou;
-            document.getElementById('share-text').textContent = translations[selectedLang].shareText;
-            
-            // Actualizar textos del newsletter
-            document.getElementById('newsletter-title-text').textContent = translations[selectedLang].newsletterTitle;
-            document.getElementById('feature-1-text').textContent = translations[selectedLang].feature1;
-            document.getElementById('feature-2-text').textContent = translations[selectedLang].feature2;
-            document.getElementById('newsletter-description-text').textContent = translations[selectedLang].newsletterDescription;
-            document.getElementById('newsletter-cta-text').textContent = translations[selectedLang].newsletterCTA;
-        });
-
-        document.getElementById('urlForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            let urlInput = document.getElementById('url').value.trim().toLowerCase();
-            const selectedLang = document.getElementById('language').value;
-
-            if (!urlInput.startsWith("https://github.com/")) {
-                alert(translations[selectedLang].errorMsg);
-                return;
-            }
-
-            const data = JSON.stringify({ url: urlInput });
-
-            try {
-                const response = await fetch('https://webhook.nimboxtalk.chat/webhook/f8c77fed-b6dc-4d7b-ba47-fbf3c83dca43', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: data
-                });
-
-                if (response.ok) {
-                    const thankYou = document.getElementById('thankYou');
-                    thankYou.classList.add('show');
-                    document.getElementById('url').value = '';
-                    
-                    // Ocultar la notificación después de 3 segundos
-                    setTimeout(() => {
-                        thankYou.classList.remove('show');
-                    }, 3000);
-                } else {
-                    alert("❌ Error al enviar la URL.");
+        // Esperar a que el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            const translations = {
+                es: {
+                    urlLabel: "Introduce la URL de GitHub:",
+                    submitText: "Enviar",
+                    thankMessage: "¡Gracias por tu contribución!",
+                    newsletterTitle: "Código + No-Code",
+                    newsletterDescription: "Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.",
+                    newsletterCTA: "Suscríbete Gratis",
+                    shareText: "Compartir TOP GIT",
+                    tweetText: "¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub"
+                },
+                it: {
+                    urlLabel: "Inserisci l'URL di GitHub:",
+                    submitText: "Invia",
+                    thankMessage: "Grazie per il tuo contributo!",
+                    newsletterTitle: "Codice + No-Code",
+                    newsletterDescription: "Unisciti alla nostra newsletter e scopri come combinare la potenza dell'Open Source con strumenti No-Code.",
+                    newsletterCTA: "Iscriviti Gratis",
+                    shareText: "Condividi TOP GIT",
+                    tweetText: "Ho scoperto TOP GIT! La migliore selezione di repository GitHub."
+                },
+                en: {
+                    urlLabel: "Enter the GitHub URL:",
+                    submitText: "Submit",
+                    thankMessage: "Thanks for your contribution!",
+                    newsletterTitle: "Code + No-Code",
+                    newsletterDescription: "Join our newsletter and discover how to combine the power of Open Source with No-Code tools.",
+                    newsletterCTA: "Subscribe Free",
+                    shareText: "Share TOP GIT",
+                    tweetText: "Just discovered TOP GIT! The best curated GitHub repositories."
                 }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("⚠️ Hubo un problema al enviar la URL.");
+            };
+
+            function shareOnTwitter() {
+                const confettiConfig = {
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                };
+
+                // Lanzar confeti
+                confetti(confettiConfig);
+
+                // Mostrar el modal después de un breve retraso
+                setTimeout(() => {
+                    document.getElementById('shareModal').classList.add('show');
+                }, 1000);
             }
+
+            function openTwitterShare() {
+                const telegramUrl = encodeURIComponent("https://t.me/addlist/GGzwIp9Y1IgwNjlk");
+                const tweetText = encodeURIComponent("¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub");
+                const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${telegramUrl}`;
+                window.open(tweetUrl, '_blank');
+            }
+
+            function closeShareModal() {
+                document.getElementById('shareModal').classList.remove('show');
+            }
+
+            // Cerrar el modal al hacer clic fuera de él
+            document.getElementById('shareModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeShareModal();
+                }
+            });
+
+            // Manejar el cambio de idioma
+            document.getElementById('language').addEventListener('change', function() {
+                const selectedLang = this.value;
+                document.getElementById('label-url').textContent = translations[selectedLang].urlLabel;
+                document.getElementById('submit-btn').textContent = translations[selectedLang].submitText;
+                document.getElementById('thank-message').textContent = translations[selectedLang].thankMessage;
+                document.getElementById('newsletter-title').textContent = translations[selectedLang].newsletterTitle;
+                document.getElementById('newsletter-description').textContent = translations[selectedLang].newsletterDescription;
+                document.getElementById('newsletter-cta').textContent = translations[selectedLang].newsletterCTA;
+                document.getElementById('share-text').textContent = translations[selectedLang].shareText;
+            });
+
+            // Exponer las funciones necesarias globalmente
+            window.shareOnTwitter = shareOnTwitter;
+            window.openTwitterShare = openTwitterShare;
+            window.closeShareModal = closeShareModal;
+
+            document.getElementById('urlForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                let urlInput = document.getElementById('url').value.trim().toLowerCase();
+                const selectedLang = document.getElementById('language').value;
+
+                if (!urlInput.startsWith("https://github.com/")) {
+                    alert(translations[selectedLang].errorMsg);
+                    return;
+                }
+
+                const data = JSON.stringify({ url: urlInput });
+
+                try {
+                    const response = await fetch('https://webhook.nimboxtalk.chat/webhook/f8c77fed-b6dc-4d7b-ba47-fbf3c83dca43', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: data
+                    });
+
+                    if (response.ok) {
+                        document.getElementById('url').value = '';
+                        
+                        // Lanzar confeti y mostrar modal de compartir
+                        const confettiConfig = {
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { y: 0.6 }
+                        };
+                        confetti(confettiConfig);
+                        
+                        // Mostrar el modal inmediatamente después del confeti
+                        setTimeout(() => {
+                            document.getElementById('shareModal').classList.add('show');
+                        }, 500);
+                    } else {
+                        alert("❌ Error al enviar la URL.");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("⚠️ Hubo un problema al enviar la URL.");
+                }
+            });
         });
     </script>
-
 </body>
 </html>
