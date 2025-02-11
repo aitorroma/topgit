@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -213,6 +213,36 @@
             font-size: 0.9em;
             color: #e2e8f0;
         }
+        .telegram-section {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .telegram-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #0088cc;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .telegram-button:hover {
+            background-color: #0077b3;
+            transform: translateY(-1px);
+        }
+
+        .telegram-button svg {
+            width: 24px;
+            height: 24px;
+        }
         /* Modal styles */
         .modal-overlay {
             display: none;
@@ -302,40 +332,47 @@
 
     <div class="container">
         <h1><span class="emoji">🚀</span>TOP GIT</h1>
-        <label for="language"><span class="emoji">🌍</span>Selecciona tu idioma:</label>
+        <label for="language" id="select-language"><span class="emoji">🌍</span>Select your language:</label>
         <select id="language">
             <option value="es">🇪🇸 Español</option>
             <option value="it">🇮🇹 Italiano</option>
-            <option value="en">🇺🇸 English</option>
+            <option value="en" selected>🇺🇸 English</option>
         </select>
 
         <form id="urlForm">
-            <label id="label-url" for="url"><span class="emoji">🔗</span>Introduce la URL de GitHub:</label>
+            <label id="label-url" for="url"><span class="emoji">🔗</span>Enter the GitHub URL:</label>
             <input type="url" id="url" name="url" required placeholder="https://github.com/usuario/repositorio">
-            <button type="submit" id="submit-btn">Enviar</button>
+            <button type="submit" id="submit-btn">Submit</button>
         </form>
 
         <div class="newsletter-card">
             <div class="newsletter-title">
                 <span class="emoji">📬</span>
-                <span id="newsletter-title-text">¿Te interesa el Open Source y el No-Code?</span>
+                <span id="newsletter-title-text">Interested in Open Source and No-Code?</span>
             </div>
             <div class="newsletter-features">
                 <div class="feature">
                     <span class="emoji">✨</span>
-                    <span id="feature-1-text">Recursos semanales</span>
+                    <span id="feature-1-text">Weekly resources</span>
                 </div>
                 <div class="feature">
                     <span class="emoji">🎯</span>
-                    <span id="feature-2-text">Tutoriales</span>
+                    <span id="feature-2-text">Tutorials</span>
                 </div>
             </div>
             <p class="newsletter-description" id="newsletter-description-text">
-                Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.
+                Join our newsletter and discover how to combine the power of Open Source with No-Code tools.
             </p>
             <a href="https://nocodeopensource.io/" target="_blank" rel="noopener" class="newsletter-link">
                 <span class="emoji">🔥</span>
-                <span id="newsletter-cta-text">Suscríbete Gratis</span>
+                <span id="newsletter-cta-text">Subscribe Free</span>
+            </a>
+        </div>
+
+        <div class="telegram-section">
+            <a id="telegram-link" href="https://t.me/TOPGitUS" target="_blank" rel="noopener" class="telegram-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19c-.14.75-.42 1-.68 1.03c-.58.05-1.02-.38-1.58-.75c-.88-.58-1.38-.94-2.23-1.5c-.99-.65-.35-1.01.22-1.59c.15-.15 2.71-2.48 2.76-2.69c.01-.03.01-.14-.05-.2c-.06-.06-.17-.04-.25-.02c-.11.03-1.86 1.18-5.25 3.47c-.5.34-.95.51-1.36.5c-.45-.01-1.3-.25-1.94-.46c-.78-.26-1.4-.4-1.35-.85c.03-.22.33-.45.91-.68c3.57-1.55 5.95-2.57 7.15-3.08c3.4-1.44 4.11-1.69 4.57-1.7c.1 0 .32.02.47.14c.12.1.15.23.17.33c0 .1.01.23-.02.36z"/></svg>
+                <span id="telegram-text">Join our Telegram Channel</span>
             </a>
         </div>
     </div>
@@ -343,24 +380,24 @@
     <div class="notification" id="thankYou">
         <div class="notification-content">
             <span class="emoji">✨</span>
-            <span id="thank-message">¡Gracias por tu contribución!</span>
+            <span id="thank-message">Thanks for your contribution!</span>
         </div>
         <button onclick="shareOnTwitter()" class="share-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m.058 1l9.267 12.39L0 23.462h2.099l8.163-8.82l6.596 8.82H24l-9.788-13.087L22.892 1h-2.1l-7.517 8.122L7.2 1zm3.087 1.546h3.28l14.488 19.37h-3.28L3.145 2.547Z"/></svg>
-            Compartir TOP GIT
+            Share TOP GIT
         </button>
     </div>
 
     <!-- Modal de compartir -->
     <div class="modal-overlay" id="shareModal">
         <div class="share-modal">
-            <h2 id="modal-title">¡Gracias por contribuir! 🎉</h2>
-            <p id="modal-description">Comparte TOP GIT con tu comunidad y ayuda a otros desarrolladores a descubrir los mejores repositorios.</p>
+            <h2 id="modal-title">Thanks for contributing! 🎉</h2>
+            <p id="modal-description">Share TOP GIT with your community and help other developers discover the best repositories.</p>
             <button onclick="openTwitterShare()" class="share-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m.058 1l9.267 12.39L0 23.462h2.099l8.163-8.82l6.596 8.82H24l-9.788-13.087L22.892 1h-2.1l-7.517 8.122L7.2 1zm3.087 1.546h3.28l14.488 19.37h-3.28L3.145 2.547Z"/></svg>
-                <span id="modal-share-button">Compartir en X</span>
+                <span id="modal-share-button">Share on X</span>
             </button>
-            <button onclick="closeShareModal()" class="close-button" id="modal-close-button">Cerrar</button>
+            <button onclick="closeShareModal()" class="close-button" id="modal-close-button">Close</button>
         </div>
     </div>
 
@@ -385,7 +422,9 @@
                     modalTitle: "¡Gracias por contribuir! 🎉",
                     modalDescription: "Comparte TOP GIT con tu comunidad y ayuda a otros desarrolladores a descubrir los mejores repositorios.",
                     modalShareButton: "Compartir en X",
-                    modalCloseButton: "Cerrar"
+                    modalCloseButton: "Cerrar",
+                    selectLanguage: "Selecciona tu idioma:",
+                    telegramText: "Únete a nuestro Canal de Telegram"
                 },
                 it: {
                     urlLabel: "Inserisci l'URL di GitHub:",
@@ -403,7 +442,9 @@
                     modalTitle: "Grazie per il contributo! 🎉",
                     modalDescription: "Condividi TOP GIT con la tua community e aiuta altri sviluppatori a scoprire i migliori repository.",
                     modalShareButton: "Condividi su X",
-                    modalCloseButton: "Chiudi"
+                    modalCloseButton: "Chiudi",
+                    selectLanguage: "Seleziona la tua lingua:",
+                    telegramText: "Unisciti al nostro Canale Telegram"
                 },
                 en: {
                     urlLabel: "Enter the GitHub URL:",
@@ -421,7 +462,9 @@
                     modalTitle: "Thanks for contributing! 🎉",
                     modalDescription: "Share TOP GIT with your community and help other developers discover the best repositories.",
                     modalShareButton: "Share on X",
-                    modalCloseButton: "Close"
+                    modalCloseButton: "Close",
+                    selectLanguage: "Select your language:",
+                    telegramText: "Join our Telegram Channel"
                 }
             };
 
@@ -483,8 +526,21 @@
                 document.getElementById('newsletter-description-text').textContent = translations[selectedLang].newsletterDescription;
                 document.getElementById('newsletter-cta-text').textContent = translations[selectedLang].newsletterCTA;
 
+                // Actualizar el idioma del selector de idioma
+                document.getElementById('select-language').innerHTML = '<span class="emoji">🌍</span>' + translations[selectedLang].selectLanguage;
+
                 // Actualizar el idioma del modal
                 updateModalLanguage(selectedLang);
+
+                // Actualizar el enlace y texto de Telegram según el idioma
+                const telegramLink = document.getElementById('telegram-link');
+                const telegramChannels = {
+                    'es': 'https://t.me/TOPGitES',
+                    'en': 'https://t.me/TOPGitUS',
+                    'it': 'https://t.me/TOPGitIT'
+                };
+                telegramLink.href = telegramChannels[selectedLang];
+                document.getElementById('telegram-text').textContent = translations[selectedLang].telegramText;
             });
 
             // Exponer las funciones necesarias globalmente
