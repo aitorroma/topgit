@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOP GIT - Enviar URL</title>
+    <script defer data-domain="topgit.nimbox360.com" src="https://plausible.hiveagile.dev/js/script.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -372,31 +373,37 @@
                     urlLabel: "Introduce la URL de GitHub:",
                     submitText: "Enviar",
                     thankMessage: "¡Gracias por tu contribución!",
-                    newsletterTitle: "Código + No-Code",
+                    newsletterTitle: "¿Te interesa el Open Source y el No-Code?",
+                    feature1: "Recursos semanales",
+                    feature2: "Tutoriales",
                     newsletterDescription: "Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.",
                     newsletterCTA: "Suscríbete Gratis",
                     shareText: "Compartir TOP GIT",
-                    tweetText: "¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub"
+                    tweetText: "¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub. Únete a nuestra comunidad: https://t.me/addlist/GGzwIp9Y1IgwNjlk"
                 },
                 it: {
                     urlLabel: "Inserisci l'URL di GitHub:",
                     submitText: "Invia",
                     thankMessage: "Grazie per il tuo contributo!",
-                    newsletterTitle: "Codice + No-Code",
+                    newsletterTitle: "Ti interessano Open Source e No-Code?",
+                    feature1: "Risorse settimanali",
+                    feature2: "Tutorial",
                     newsletterDescription: "Unisciti alla nostra newsletter e scopri come combinare la potenza dell'Open Source con strumenti No-Code.",
                     newsletterCTA: "Iscriviti Gratis",
                     shareText: "Condividi TOP GIT",
-                    tweetText: "Ho scoperto TOP GIT! La migliore selezione di repository GitHub."
+                    tweetText: "Ho contribuito a TOP GIT! 🚀 Scopri i repository GitHub più popolari. Unisciti alla nostra community: https://t.me/addlist/GGzwIp9Y1IgwNjlk"
                 },
                 en: {
                     urlLabel: "Enter the GitHub URL:",
                     submitText: "Submit",
                     thankMessage: "Thanks for your contribution!",
-                    newsletterTitle: "Code + No-Code",
+                    newsletterTitle: "Interested in Open Source and No-Code?",
+                    feature1: "Weekly resources",
+                    feature2: "Tutorials",
                     newsletterDescription: "Join our newsletter and discover how to combine the power of Open Source with No-Code tools.",
                     newsletterCTA: "Subscribe Free",
                     shareText: "Share TOP GIT",
-                    tweetText: "Just discovered TOP GIT! The best curated GitHub repositories."
+                    tweetText: "I just contributed to TOP GIT! 🚀 Discover the most popular GitHub repositories. Join our community: https://t.me/addlist/GGzwIp9Y1IgwNjlk"
                 }
             };
 
@@ -417,9 +424,10 @@
             }
 
             function openTwitterShare() {
+                const selectedLang = document.getElementById('language').value;
                 const telegramUrl = encodeURIComponent("https://t.me/addlist/GGzwIp9Y1IgwNjlk");
-                const tweetText = encodeURIComponent("¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub");
-                const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${telegramUrl}`;
+                const tweetText = encodeURIComponent(translations[selectedLang].tweetText);
+                const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
                 window.open(tweetUrl, '_blank');
             }
 
@@ -440,10 +448,13 @@
                 document.getElementById('label-url').textContent = translations[selectedLang].urlLabel;
                 document.getElementById('submit-btn').textContent = translations[selectedLang].submitText;
                 document.getElementById('thank-message').textContent = translations[selectedLang].thankMessage;
-                document.getElementById('newsletter-title').textContent = translations[selectedLang].newsletterTitle;
-                document.getElementById('newsletter-description').textContent = translations[selectedLang].newsletterDescription;
-                document.getElementById('newsletter-cta').textContent = translations[selectedLang].newsletterCTA;
-                document.getElementById('share-text').textContent = translations[selectedLang].shareText;
+                
+                // Actualizar textos del newsletter con los IDs correctos
+                document.getElementById('newsletter-title-text').textContent = translations[selectedLang].newsletterTitle;
+                document.getElementById('feature-1-text').textContent = translations[selectedLang].feature1;
+                document.getElementById('feature-2-text').textContent = translations[selectedLang].feature2;
+                document.getElementById('newsletter-description-text').textContent = translations[selectedLang].newsletterDescription;
+                document.getElementById('newsletter-cta-text').textContent = translations[selectedLang].newsletterCTA;
             });
 
             // Exponer las funciones necesarias globalmente
