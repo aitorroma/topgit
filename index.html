@@ -354,13 +354,13 @@
     <!-- Modal de compartir -->
     <div class="modal-overlay" id="shareModal">
         <div class="share-modal">
-            <h2>¡Gracias por contribuir! 🎉</h2>
-            <p>Comparte TOP GIT con tu comunidad y ayuda a otros desarrolladores a descubrir los mejores repositorios.</p>
+            <h2 id="modal-title">¡Gracias por contribuir! 🎉</h2>
+            <p id="modal-description">Comparte TOP GIT con tu comunidad y ayuda a otros desarrolladores a descubrir los mejores repositorios.</p>
             <button onclick="openTwitterShare()" class="share-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m.058 1l9.267 12.39L0 23.462h2.099l8.163-8.82l6.596 8.82H24l-9.788-13.087L22.892 1h-2.1l-7.517 8.122L7.2 1zm3.087 1.546h3.28l14.488 19.37h-3.28L3.145 2.547Z"/></svg>
-                Compartir en X
+                <span id="modal-share-button">Compartir en X</span>
             </button>
-            <button onclick="closeShareModal()" class="close-button">Cerrar</button>
+            <button onclick="closeShareModal()" class="close-button" id="modal-close-button">Cerrar</button>
         </div>
     </div>
 
@@ -379,7 +379,11 @@
                     newsletterDescription: "Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.",
                     newsletterCTA: "Suscríbete Gratis",
                     shareText: "Compartir TOP GIT",
-                    tweetText: "¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub. Únete a nuestra comunidad: https://t.me/addlist/GGzwIp9Y1IgwNjlk"
+                    tweetText: "¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub. Únete a nuestra comunidad: https://t.me/addlist/GGzwIp9Y1IgwNjlk",
+                    modalTitle: "¡Gracias por contribuir! 🎉",
+                    modalDescription: "Comparte TOP GIT con tu comunidad y ayuda a otros desarrolladores a descubrir los mejores repositorios.",
+                    modalShareButton: "Compartir en X",
+                    modalCloseButton: "Cerrar"
                 },
                 it: {
                     urlLabel: "Inserisci l'URL di GitHub:",
@@ -391,7 +395,11 @@
                     newsletterDescription: "Unisciti alla nostra newsletter e scopri come combinare la potenza dell'Open Source con strumenti No-Code.",
                     newsletterCTA: "Iscriviti Gratis",
                     shareText: "Condividi TOP GIT",
-                    tweetText: "Ho contribuito a TOP GIT! 🚀 Scopri i repository GitHub più popolari. Unisciti alla nostra community: https://t.me/addlist/GGzwIp9Y1IgwNjlk"
+                    tweetText: "Ho contribuito a TOP GIT! 🚀 Scopri i repository GitHub più popolari. Unisciti alla nostra community: https://t.me/addlist/GGzwIp9Y1IgwNjlk",
+                    modalTitle: "Grazie per il contributo! 🎉",
+                    modalDescription: "Condividi TOP GIT con la tua community e aiuta altri sviluppatori a scoprire i migliori repository.",
+                    modalShareButton: "Condividi su X",
+                    modalCloseButton: "Chiudi"
                 },
                 en: {
                     urlLabel: "Enter the GitHub URL:",
@@ -403,9 +411,20 @@
                     newsletterDescription: "Join our newsletter and discover how to combine the power of Open Source with No-Code tools.",
                     newsletterCTA: "Subscribe Free",
                     shareText: "Share TOP GIT",
-                    tweetText: "I just contributed to TOP GIT! 🚀 Discover the most popular GitHub repositories. Join our community: https://t.me/addlist/GGzwIp9Y1IgwNjlk"
+                    tweetText: "I just contributed to TOP GIT! 🚀 Discover the most popular GitHub repositories. Join our community: https://t.me/addlist/GGzwIp9Y1IgwNjlk",
+                    modalTitle: "Thanks for contributing! 🎉",
+                    modalDescription: "Share TOP GIT with your community and help other developers discover the best repositories.",
+                    modalShareButton: "Share on X",
+                    modalCloseButton: "Close"
                 }
             };
+
+            function updateModalLanguage(lang) {
+                document.getElementById('modal-title').textContent = translations[lang].modalTitle;
+                document.getElementById('modal-description').textContent = translations[lang].modalDescription;
+                document.getElementById('modal-share-button').textContent = translations[lang].modalShareButton;
+                document.getElementById('modal-close-button').textContent = translations[lang].modalCloseButton;
+            }
 
             function shareOnTwitter() {
                 const confettiConfig = {
@@ -419,6 +438,8 @@
 
                 // Mostrar el modal después de un breve retraso
                 setTimeout(() => {
+                    const selectedLang = document.getElementById('language').value;
+                    updateModalLanguage(selectedLang);
                     document.getElementById('shareModal').classList.add('show');
                 }, 1000);
             }
@@ -455,6 +476,9 @@
                 document.getElementById('feature-2-text').textContent = translations[selectedLang].feature2;
                 document.getElementById('newsletter-description-text').textContent = translations[selectedLang].newsletterDescription;
                 document.getElementById('newsletter-cta-text').textContent = translations[selectedLang].newsletterCTA;
+
+                // Actualizar el idioma del modal
+                updateModalLanguage(selectedLang);
             });
 
             // Exponer las funciones necesarias globalmente
