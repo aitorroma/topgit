@@ -700,9 +700,12 @@
         document.getElementById('urlForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             const selectedLang = document.querySelector('#language').value;
-            let urlInput = document.getElementById('url').value.trim().toLowerCase();
+            let urlInput = document.getElementById('url').value.trim();
 
-            if (!urlInput.startsWith('https://github.com/') && !urlInput.startsWith('https://gitlab.com/')) {
+            // Validación más flexible usando regex
+            const validUrlPattern = /^https:\/\/(github\.com|gitlab\.com)\/[\w-]+\/[\w.-]+\/?$/i;
+            
+            if (!validUrlPattern.test(urlInput)) {
                 alert(translations[selectedLang].errorMsg);
                 return;
             }
