@@ -11,17 +11,17 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://topgit.nimbox360.com/">
+    <meta property="og:url" content="https://topgit.es/">
     <meta property="og:title" content="TOP GIT - Most Popular GitHub Repositories">
     <meta property="og:description" content="Discover and explore the most popular GitHub repositories. Share your favorite projects with the community.">
-    <meta property="og:image" content="https://topgit.nimbox360.com/topgit.jpg">
+    <meta property="og:image" content="https://topgit.es/assets/logo.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://topgit.nimbox360.com/">
+    <meta property="twitter:url" content="https://topgit.es/">
     <meta property="twitter:title" content="TOP GIT - Most Popular GitHub Repositories">
     <meta property="twitter:description" content="Discover and explore the most popular GitHub repositories. Share your favorite projects with the community.">
-    <meta property="twitter:image" content="https://topgit.nimbox360.com/topgit.jpg">
+    <meta property="twitter:image" content="https://topgit.es/assets/logo.png">
 
     <script defer data-domain="topgit.nimbox360.com" src="https://plausible.hiveagile.dev/js/script.js"></script>
     <style>
@@ -397,6 +397,7 @@
                     <option value="es" selected>🇪🇸 Español</option>
                     <option value="en">🇺🇸 English</option>
                     <option value="it">🇮🇹 Italiano</option>
+                    <option value="pt-br">🇧🇷 Brasileiro</option>
                 </select>
             </div>
         </header>
@@ -408,10 +409,10 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                         </svg>
-                        <span id="url-label-text">Comparte tu repositorio de GitHub</span>
+                        <span id="url-label-text">Comparte tu repositorio</span>
                     </label>
                     <div class="github-input-wrapper">
-                        <input type="url" id="url" name="url" placeholder="https://github.com/usuario/repositorio" required>
+                        <input type="url" id="url" name="url" placeholder="https://github.com/usuario/repositorio o https://gitlab.com/usuario/repositorio" required>
                     </div>
                     <button type="submit">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -521,8 +522,8 @@
         const translations = {
             en: {
                 selectLanguage: "Select your language:",
-                shareRepo: "Share your GitHub repository",
-                placeholder: "https://github.com/username/repository",
+                shareRepo: "Share your repository",
+                placeholder: "https://github.com/user/repository or https://gitlab.com/user/repository",
                 shareButton: "Share Amazing Repository",
                 joinTelegram: "Join our Telegram Community",
                 benefit1: "Be the first to discover trending repositories",
@@ -536,7 +537,7 @@
                 newsletterDescription: "Join our newsletter and discover how to combine the power of Open Source with No-Code tools.",
                 subscribe: "Subscribe Free",
                 telegramUrl: "https://t.me/TOPGitUS",
-                errorMsg: "❌ Only GitHub URLs are allowed.",
+                errorMsg: "❌ Only GitHub and GitLab URLs are allowed.",
                 alreadyExistsMsg: "This repository has already been added before.",
                 tweetText: "I just contributed to TOP GIT! 🚀 Discover the most popular GitHub repositories. Join our community: https://t.me/addlist/GGzwIp9Y1IgwNjlk",
                 modalTitle: "Thanks for contributing! 🎉",
@@ -546,8 +547,8 @@
             },
             es: {
                 selectLanguage: "Selecciona tu idioma:",
-                shareRepo: "Comparte tu repositorio de GitHub",
-                placeholder: "https://github.com/usuario/repositorio",
+                shareRepo: "Comparte tu repositorio",
+                placeholder: "https://github.com/usuario/repositorio o https://gitlab.com/usuario/repositorio",
                 shareButton: "Compartir Repositorio Increíble",
                 joinTelegram: "Únete a nuestra Comunidad Telegram",
                 benefit1: "Sé el primero en descubrir repositorios tendencia",
@@ -561,7 +562,7 @@
                 newsletterDescription: "Únete a nuestra newsletter y descubre cómo combinar el poder del Open Source con herramientas No-Code.",
                 subscribe: "Suscríbete Gratis",
                 telegramUrl: "https://t.me/TOPGitES",
-                errorMsg: "❌ Solo se permiten URLs de GitHub.",
+                errorMsg: "❌ Solo se permiten URLs de GitHub y GitLab.",
                 alreadyExistsMsg: "Este repositorio ya ha sido añadido anteriormente.",
                 tweetText: "¡He contribuido a TOP GIT! 🚀 Descubre los repositorios más populares de GitHub. Únete a nuestra comunidad: https://t.me/addlist/GGzwIp9Y1IgwNjlk",
                 modalTitle: "¡Gracias por contribuir! 🎉",
@@ -571,8 +572,8 @@
             },
             it: {
                 selectLanguage: "Seleziona la tua lingua:",
-                shareRepo: "Condividi il tuo repository GitHub",
-                placeholder: "https://github.com/utente/repository",
+                shareRepo: "Condividi il tuo repository",
+                placeholder: "https://github.com/utente/repository o https://gitlab.com/utente/repository",
                 shareButton: "Condividi Repository Incredibile",
                 joinTelegram: "Unisciti alla nostra Comunità Telegram",
                 benefit1: "Sii il primo a scoprire i repository di tendenza",
@@ -586,13 +587,38 @@
                 newsletterDescription: "Unisciti alla nostra newsletter e scopri come combinare il potere dell'Open Source con gli strumenti No-Code.",
                 subscribe: "Iscriviti Gratis",
                 telegramUrl: "https://t.me/TOPGitIT",
-                errorMsg: "❌ Sono consentiti solo URL GitHub.",
+                errorMsg: "❌ Sono consentiti solo URL GitHub e GitLab.",
                 alreadyExistsMsg: "Questo repository è già stato aggiunto in precedenza.",
                 tweetText: "Ho contribuito a TOP GIT! 🚀 Scopri i repository GitHub più popolari. Unisciti alla nostra community: https://t.me/addlist/GGzwIp9Y1IgwNjlk",
                 modalTitle: "Grazie per il contributo! 🎉",
                 modalDescription: "Condividi TOP GIT con la tua community e aiuta altri sviluppatori a scoprire i migliori repository.",
                 modalShareButton: "Condividi su X",
                 modalCloseButton: "Chiudi"
+            },
+            "pt-br": {
+                selectLanguage: "Selecione seu idioma:",
+                shareRepo: "Compartilhe seu repositório",
+                placeholder: "https://github.com/usuario/repositorio ou https://gitlab.com/usuario/repositorio",
+                shareButton: "Compartilhar Repositório Incrível",
+                joinTelegram: "Junte-se à nossa Comunidade do Telegram",
+                benefit1: "Seja o primeiro a descobrir repositórios em tendência",
+                benefit2: "Conecte-se com outros desenvolvedores",
+                benefit3: "Receba conteúdo curado diariamente",
+                joinButton: "Junte-se ao Canal TOP GIT",
+                members: "500+ membros",
+                newsletterTitle: "Interessado em Open Source e No-Code?",
+                feature1: "Recursos semanais",
+                feature2: "Tutoriais",
+                newsletterDescription: "Junte-se à nossa newsletter e descubra como combinar o poder do Open Source com ferramentas No-Code.",
+                subscribe: "Inscreva-se Grátis",
+                telegramUrl: "https://t.me/TOPGitBR",
+                errorMsg: "❌ Somente URLs do GitHub e GitLab são permitidas.",
+                alreadyExistsMsg: "Este repositório já foi adicionado anteriormente.",
+                tweetText: "Eu contribuí para o TOP GIT! 🚀 Descubra os repositórios do GitHub mais populares. Junte-se à nossa comunidade: https://t.me/addlist/GGzwIp9Y1IgwNjlk",
+                modalTitle: "Obrigado por contribuir! 🎉",
+                modalDescription: "Compartilhe o TOP GIT com sua comunidade e ajude outros desenvolvedores a descobrir os melhores repositórios.",
+                modalShareButton: "Compartilhar no X",
+                modalCloseButton: "Fechar"
             }
         };
 
@@ -655,7 +681,8 @@
             const text = {
                 en: "Check out TOP GIT - Discover the most popular GitHub repositories! 🚀",
                 es: "¡Descubre TOP GIT - Los repositorios más populares de GitHub! 🚀",
-                it: "Scopri TOP GIT - I repository GitHub più popolari! 🚀"
+                it: "Scopri TOP GIT - I repository GitHub più popolari! 🚀",
+                "pt-br": "Descubra o TOP GIT - Os repositórios do GitHub mais populares! 🚀"
             }[selectedLang];
             const url = "https://topgit.nimbox360.com/";
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
@@ -675,7 +702,7 @@
             const selectedLang = document.querySelector('#language').value;
             let urlInput = document.getElementById('url').value.trim().toLowerCase();
 
-            if (!urlInput.startsWith('https://github.com/')) {
+            if (!urlInput.startsWith('https://github.com/') && !urlInput.startsWith('https://gitlab.com/')) {
                 alert(translations[selectedLang].errorMsg);
                 return;
             }
