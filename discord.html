@@ -408,24 +408,17 @@
                 title: "🤖 Plugin LocalVocal para OBS",
                 description: "Descripción:",
                 mainDescription: "LocalVocal es un plugin para OBS que permite transcribir y traducir audio en tiempo real utilizando inteligencia artificial. Funciona completamente en tu máquina, sin necesidad de GPU, costes en la nube o conexión a internet. Se prioriza la privacidad, manteniendo todos los datos localmente.",
-                technicalDescription: "Este plugin utiliza <span class=\"code\">Whisper de OpenAI</span> para procesar el audio y realizar la transcripción, además de <span class=\"code\">CTranslate2</span> para las traducciones en tiempo real. Permite mostrar subtítulos en pantalla y guardar las transcripciones en distintos formatos.",
-                goToRepo: "Ir al repositorio",
-                clickHere: "Haz clic aquí para visitar el enlace",
-                collaborate: "Colabora con nosotros",
-                visitAndCollaborate: "Visita TopGit y colabora",
-                hashtags: "Hashtags: #LocalVocal #OBS #InteligenciaArtificial",
-                telegramInvite: "Servicio ofrecido por TOPGitES. Únete a nuestro canal en Telegram:",
-                telegramUrl: "https://t.me/TOPGitES",
-                backButton: "Volver",
-                // Interfaz
-                pageTitle: "TOP GIT - Configuración Discord",
-                webhookLabel: "🔗 URL del Webhook de Discord:",
-                webhookPlaceholder: "https://discord.com/api/webhooks/...",
-                languageLabel: "🌐 Idioma de las notificaciones:",
-                colorLabel: "🎨 Color de las notificaciones:",
-                saveButton: "💾 Guardar Configuración",
-                previewTitle: "Vista previa del mensaje",
+                technicalDescription: "Este plugin utiliza <span class=\"code\">Whisper de OpenAI</span> para el procesamiento de audio y transcripción, más <span class=\"code\">CTranslate2</span> para traducciones en tiempo real. Permite mostrar subtítulos en pantalla y guardar transcripciones en varios formatos.",
+                features: "Características principales:",
+                featuresList: [
+                    "🎯 Transcripción de voz a texto en tiempo real",
+                    "🌍 Traducción instantánea a múltiples idiomas",
+                    "💻 Procesamiento 100% local",
+                    "🔒 Privacidad garantizada",
+                    "⚡ Rendimiento optimizado"
+                ],
                 successMessage: "✅ Configuración guardada correctamente",
+                updateMessage: "✅ Configuración actualizada correctamente",
                 errorMessage: "❌ Error al guardar la configuración",
                 connectionError: "❌ Error de conexión. Por favor, inténtalo de nuevo."
             },
@@ -434,6 +427,14 @@
                 description: "Description:",
                 mainDescription: "LocalVocal is an OBS plugin that allows real-time audio transcription and translation using artificial intelligence. It works completely on your machine, without the need for GPU, cloud costs, or internet connection. Privacy is prioritized, keeping all data locally.",
                 technicalDescription: "This plugin uses <span class=\"code\">OpenAI's Whisper</span> for audio processing and transcription, plus <span class=\"code\">CTranslate2</span> for real-time translations. It allows displaying subtitles on screen and saving transcriptions in different formats.",
+                features: "Main Features:",
+                featuresList: [
+                    "🎯 Real-time voice-to-text transcription",
+                    "🌍 Instant translation to multiple languages",
+                    "💻 100% local processing",
+                    "🔒 Guaranteed privacy",
+                    "⚡ Optimized performance"
+                ],
                 goToRepo: "Go to repository",
                 clickHere: "Click here to visit the link",
                 collaborate: "Collaborate with us",
@@ -442,7 +443,7 @@
                 telegramInvite: "Service provided by TOPGitEN. Join our Telegram channel:",
                 telegramUrl: "https://t.me/TOPGitEN",
                 backButton: "Back",
-                // Interface
+                // Interfaz
                 pageTitle: "TOP GIT - Discord Configuration",
                 webhookLabel: "🔗 Discord Webhook URL:",
                 webhookPlaceholder: "https://discord.com/api/webhooks/...",
@@ -459,6 +460,14 @@
                 description: "Descrizione:",
                 mainDescription: "LocalVocal è un plugin per OBS che permette la trascrizione e la traduzione audio in tempo reale utilizzando l'intelligenza artificiale. Funziona completamente sulla tua macchina, senza necessità di GPU, costi cloud o connessione internet. La privacy è prioritaria, mantenendo tutti i dati localmente.",
                 technicalDescription: "Questo plugin utilizza <span class=\"code\">Whisper di OpenAI</span> per l'elaborazione audio e la trascrizione, più <span class=\"code\">CTranslate2</span> per le traduzioni in tempo reale. Permette di visualizzare i sottotitoli sullo schermo e salvare le trascrizioni in diversi formati.",
+                features: "Caratteristiche principali:",
+                featuresList: [
+                    "🎯 Trascrizione vocale in tempo reale",
+                    "🌍 Traduzione istantanea in più lingue",
+                    "💻 Elaborazione 100% locale",
+                    "🔒 Privacy garantita",
+                    "⚡ Prestazioni ottimizzate"
+                ],
                 goToRepo: "Vai al repository",
                 clickHere: "Clicca qui per visitare il link",
                 collaborate: "Collabora con noi",
@@ -484,6 +493,14 @@
                 description: "Descrição:",
                 mainDescription: "LocalVocal é um plugin para OBS que permite transcrição e tradução de áudio em tempo real usando inteligência artificial. Funciona completamente na sua máquina, sem necessidade de GPU, custos na nuvem ou conexão com a internet. A privacidade é priorizada, mantendo todos os dados localmente.",
                 technicalDescription: "Este plugin usa <span class=\"code\">Whisper da OpenAI</span> para processamento de áudio e transcrição, mais <span class=\"code\">CTranslate2</span> para traduções em tempo real. Permite exibir legendas na tela e salvar transcrições em diferentes formatos.",
+                features: "Características principais:",
+                featuresList: [
+                    "🎯 Transcrição de voz em tempo real",
+                    "🌍 Tradução instantânea para múltiplos idiomas",
+                    "💻 Processamento 100% local",
+                    "🔒 Privacidade garantida",
+                    "⚡ Desempenho otimizado"
+                ],
                 goToRepo: "Ir para o repositório",
                 clickHere: "Clique aqui para visitar o link",
                 collaborate: "Colabore conosco",
@@ -621,8 +638,9 @@
 
                 const result = await response.json();
                 
-                if (response.ok) {
-                    showAlert(alertSuccess, t.successMessage);
+                if (result.success) {
+                    const message = result.action === 'updated' ? t.updateMessage : t.successMessage;
+                    showAlert(alertSuccess, message);
                     form.reset();
                     colorPicker.value = '#FF4B4B';
                 } else {
@@ -630,6 +648,7 @@
                 }
             } catch (error) {
                 showAlert(alertError, t.connectionError);
+                console.error('Error:', error);
             }
         });
 
