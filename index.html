@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#FF4B4B">
   <meta name="description" content="Discover and share useful GitHub and GitLab repositories.">
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="icon" href="/topgit.jpg?v=3" type="image/jpeg">
+  <link rel="icon" href="/topgit.jpg?v=4" type="image/jpeg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://topgit.us/">
   <meta property="og:title" content="TOP GIT">
   <meta property="og:description" content="Discover and share useful GitHub and GitLab repositories.">
-  <meta property="og:image" content="https://topgit.us/topgit.jpg?v=3">
+  <meta property="og:image" content="https://topgit.us/topgit.jpg?v=4">
   <title>TOP GIT</title>
   <script defer data-domain="topgit.us" src="https://plausible.hiveagile.dev/js/script.js"></script>
   <style>
@@ -37,19 +37,24 @@
     .secondary { background:#0f172a; color:white; }
     .install-card { border:1px solid rgba(255,75,75,.22); background:linear-gradient(180deg,#fff,#fff8f8); }
     .install-card img { width:82px; height:82px; object-fit:cover; border-radius:16px; margin-bottom:12px; }
-    .install-card p,.community p { color:var(--muted); line-height:1.55; }
+    .install-card p,.community p,.resources p { color:var(--muted); line-height:1.55; }
     .links { display:grid; gap:12px; margin-top:16px; }
     .links a { text-decoration:none; color:var(--text); font-weight:700; padding:14px; border-radius:12px; background:#f8fafc; }
-    .links .bot-link { background:#e8f5ff; color:#0877a8; }
+    .resource-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; }
+    .resource-button { min-height:52px; border-radius:12px; padding:0 16px; display:flex; align-items:center; justify-content:center; gap:10px; color:white; text-decoration:none; font-weight:800; }
+    .resource-button svg { width:24px; height:24px; fill:currentColor; flex:0 0 auto; }
+    .telegram-button { background:#229ED9; }
+    .discord-button { background:#5865F2; }
     .status { min-height:24px; margin-top:14px; color:var(--muted); font-weight:600; }
     footer { text-align:center; color:#94a3b8; margin-top:28px; font-size:.9rem; }
     @media (max-width:800px) { .grid { grid-template-columns:1fr; } header { align-items:flex-start; } }
+    @media (max-width:420px) { .resource-buttons { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <a class="logo" href="/"><img src="/topgit.jpg?v=3" alt="TOP GIT"><span>TOP GIT</span></a>
+      <a class="logo" href="/"><img src="/topgit.jpg?v=4" alt="TOP GIT"><span>TOP GIT</span></a>
       <select id="language" aria-label="Language">
         <option value="en">🇺🇸 English</option>
         <option value="es">🇪🇸 Español</option>
@@ -65,28 +70,39 @@
         <form id="urlForm">
           <label id="url-label" for="url"></label>
           <input id="url" name="url" type="url" required autocomplete="url">
-          <div class="actions">
-            <button id="submit" class="primary" type="submit"></button>
-          </div>
+          <div class="actions"><button id="submit" class="primary" type="submit"></button></div>
           <div id="status" class="status" role="status"></div>
         </form>
       </main>
 
       <aside>
         <section class="card install-card">
-          <img src="/topgit.jpg?v=3" alt="TOP GIT">
+          <img src="/topgit.jpg?v=4" alt="TOP GIT">
           <h2 id="install-title"></h2>
           <p id="install-text"></p>
           <a id="install-link" class="button secondary" href="/install.html?lang=en"></a>
+        </section>
+
+        <section class="card resources" style="margin-top:24px">
+          <h2 id="resources-title"></h2>
+          <p id="resources-text"></p>
+          <div class="resource-buttons">
+            <a id="telegram-bot-link" class="resource-button telegram-button" href="https://t.me/TOPGit_bot?startgroup&admin=manage_topics+pin_messages" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.94 2.34a1.5 1.5 0 0 0-1.56-.2L2.58 9.18a1.5 1.5 0 0 0 .1 2.82l4.39 1.53 1.68 5.2a1.5 1.5 0 0 0 2.55.56l2.42-2.48 4.55 3.34a1.5 1.5 0 0 0 2.36-.91l2.01-15.43a1.5 1.5 0 0 0-.7-1.47ZM9.44 13.08l8.42-6.02-6.91 7.12-.73 2.55-.78-3.65Z"/></svg>
+              <span id="telegram-bot-text"></span>
+            </a>
+            <a id="discord-link" class="resource-button discord-button" href="/discord.html">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.54 5.34A16.7 16.7 0 0 0 15.44 4l-.5 1.02a15.5 15.5 0 0 0-5.88 0L8.55 4a16.7 16.7 0 0 0-4.1 1.34C1.86 9.17 1.16 12.9 1.5 16.58a16.4 16.4 0 0 0 5.02 2.54l1.2-1.64a10.2 10.2 0 0 1-1.9-.9l.47-.36c3.67 1.7 7.65 1.7 11.28 0l.48.36c-.6.35-1.24.65-1.9.9l1.2 1.64a16.4 16.4 0 0 0 5.02-2.54c.4-4.26-.69-7.95-2.83-11.24ZM8.5 14.8c-1.1 0-2-1.02-2-2.27 0-1.26.88-2.28 2-2.28s2.02 1.03 2 2.28c0 1.25-.9 2.27-2 2.27Zm7 0c-1.1 0-2-1.02-2-2.27 0-1.26.88-2.28 2-2.28s2.02 1.03 2 2.28c0 1.25-.9 2.27-2 2.27Z"/></svg>
+              <span id="discord-text"></span>
+            </a>
+          </div>
         </section>
 
         <section class="card community" style="margin-top:24px">
           <h2 id="community-title"></h2>
           <p id="community-text"></p>
           <div class="links">
-            <a id="telegram-bot-link" class="bot-link" href="https://t.me/TOPGit_bot?startgroup&admin=manage_topics+pin_messages" target="_blank" rel="noopener"></a>
             <a id="telegram-link" href="https://t.me/TOPGitUS" target="_blank" rel="noopener"></a>
-            <a id="discord-link" href="/discord.html"></a>
             <a id="newsletter-link" href="https://nocodeopensource.io?utm_source=topgit&utm_medium=referral&utm_campaign=community" target="_blank" rel="noopener"></a>
           </div>
         </section>
@@ -102,25 +118,29 @@
         htmlLang:'en', heroTitle:'Share great repositories', heroLead:'Send useful GitHub and GitLab projects to TOP GIT so the community can discover them.',
         label:'Repository URL', placeholder:'https://github.com/user/repository', submit:'Share repository', sending:'Sending…', invalid:'Only GitHub and GitLab repository URLs are allowed.', added:'Repository added successfully.', exists:'This repository was already in TOP GIT.', failed:'The repository could not be sent. Try again shortly.',
         installTitle:'Install TOP GIT', installText:'Add TOP GIT to Android and share repositories directly from Chrome, GitHub, Telegram or any other app.', installButton:'Install sharing app',
-        communityTitle:'Join the community', communityText:'Follow the best open-source projects and receive curated updates.', telegramBot:'Add TOP GIT bot to a group', telegram:'Telegram channel', discord:'Add to Discord', newsletter:'Open-source newsletter', telegramUrl:'https://t.me/TOPGitUS'
+        resourcesTitle:'TOP GIT resources in your community', resourcesText:'The best TOP GIT resources in your Telegram group or Discord server.', telegramBot:'Add to Telegram', discord:'Add to Discord',
+        communityTitle:'Join the community', communityText:'Follow the best open-source projects and receive curated updates.', telegram:'Telegram channel', newsletter:'Open-source newsletter', telegramUrl:'https://t.me/TOPGitUS'
       },
       es: {
         htmlLang:'es', heroTitle:'Comparte repositorios increíbles', heroLead:'Envía proyectos útiles de GitHub y GitLab a TOP GIT para que la comunidad pueda descubrirlos.',
         label:'URL del repositorio', placeholder:'https://github.com/usuario/repositorio', submit:'Compartir repositorio', sending:'Enviando…', invalid:'Solo se permiten URLs de repositorios de GitHub y GitLab.', added:'Repositorio añadido correctamente.', exists:'Este repositorio ya estaba en TOP GIT.', failed:'No se ha podido enviar el repositorio. Inténtalo de nuevo en unos instantes.',
         installTitle:'Instala TOP GIT', installText:'Añade TOP GIT a Android y comparte repositorios directamente desde Chrome, GitHub, Telegram o cualquier otra aplicación.', installButton:'Instalar app para compartir',
-        communityTitle:'Únete a la comunidad', communityText:'Sigue los mejores proyectos open source y recibe contenido curado.', telegramBot:'Añadir el bot TOP GIT a un grupo', telegram:'Canal de Telegram', discord:'Añadir a Discord', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitES'
+        resourcesTitle:'TOP GIT en tu comunidad', resourcesText:'Los mejores recursos de TOP GIT en tu grupo de Telegram o en tu servidor de Discord.', telegramBot:'Añadir a Telegram', discord:'Añadir a Discord',
+        communityTitle:'Únete a la comunidad', communityText:'Sigue los mejores proyectos open source y recibe contenido curado.', telegram:'Canal de Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitES'
       },
       it: {
         htmlLang:'it', heroTitle:'Condividi repository fantastici', heroLead:'Invia progetti utili da GitHub e GitLab a TOP GIT affinché la community possa scoprirli.',
         label:'URL del repository', placeholder:'https://github.com/utente/repository', submit:'Condividi repository', sending:'Invio…', invalid:'Sono consentiti solo URL di repository GitHub e GitLab.', added:'Repository aggiunto correttamente.', exists:'Questo repository era già presente in TOP GIT.', failed:'Impossibile inviare il repository. Riprova tra poco.',
         installTitle:'Installa TOP GIT', installText:'Aggiungi TOP GIT ad Android e condividi repository direttamente da Chrome, GitHub, Telegram o qualsiasi altra app.', installButton:'Installa app di condivisione',
-        communityTitle:'Unisciti alla community', communityText:'Segui i migliori progetti open source e ricevi contenuti selezionati.', telegramBot:'Aggiungi il bot TOP GIT a un gruppo', telegram:'Canale Telegram', discord:'Aggiungi a Discord', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitIT'
+        resourcesTitle:'TOP GIT nella tua community', resourcesText:'Le migliori risorse di TOP GIT nel tuo gruppo Telegram o nel tuo server Discord.', telegramBot:'Aggiungi a Telegram', discord:'Aggiungi a Discord',
+        communityTitle:'Unisciti alla community', communityText:'Segui i migliori progetti open source e ricevi contenuti selezionati.', telegram:'Canale Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitIT'
       },
       'pt-br': {
         htmlLang:'pt-BR', heroTitle:'Compartilhe repositórios incríveis', heroLead:'Envie projetos úteis do GitHub e GitLab para o TOP GIT para que a comunidade possa descobri-los.',
         label:'URL do repositório', placeholder:'https://github.com/usuario/repositorio', submit:'Compartilhar repositório', sending:'Enviando…', invalid:'Apenas URLs de repositórios do GitHub e GitLab são permitidas.', added:'Repositório adicionado com sucesso.', exists:'Este repositório já estava no TOP GIT.', failed:'Não foi possível enviar o repositório. Tente novamente em instantes.',
         installTitle:'Instale o TOP GIT', installText:'Adicione o TOP GIT ao Android e compartilhe repositórios diretamente do Chrome, GitHub, Telegram ou qualquer outro app.', installButton:'Instalar app de compartilhamento',
-        communityTitle:'Entre para a comunidade', communityText:'Acompanhe os melhores projetos open source e receba conteúdo selecionado.', telegramBot:'Adicionar o bot TOP GIT a um grupo', telegram:'Canal do Telegram', discord:'Adicionar ao Discord', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitBR'
+        resourcesTitle:'TOP GIT na sua comunidade', resourcesText:'Os melhores recursos do TOP GIT no seu grupo do Telegram ou servidor do Discord.', telegramBot:'Adicionar ao Telegram', discord:'Adicionar ao Discord',
+        communityTitle:'Entre para a comunidade', communityText:'Acompanhe os melhores projetos open source e receba conteúdo selecionado.', telegram:'Canal do Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitBR'
       }
     };
 
@@ -155,13 +175,15 @@
       const installLink = document.getElementById('install-link');
       installLink.textContent = t.installButton;
       installLink.href = `/install.html?lang=${encodeURIComponent(lang)}`;
+      document.getElementById('resources-title').textContent = t.resourcesTitle;
+      document.getElementById('resources-text').textContent = t.resourcesText;
+      document.getElementById('telegram-bot-text').textContent = t.telegramBot;
+      document.getElementById('discord-text').textContent = t.discord;
       document.getElementById('community-title').textContent = t.communityTitle;
       document.getElementById('community-text').textContent = t.communityText;
-      document.getElementById('telegram-bot-link').textContent = t.telegramBot;
       const telegramLink = document.getElementById('telegram-link');
       telegramLink.textContent = t.telegram;
       telegramLink.href = t.telegramUrl;
-      document.getElementById('discord-link').textContent = t.discord;
       document.getElementById('newsletter-link').textContent = t.newsletter;
       status.textContent = '';
     }
@@ -170,12 +192,10 @@
 
     form.addEventListener('submit', async event => {
       event.preventDefault();
-      const lang = language.value;
-      const t = translations[lang];
+      const t = translations[language.value];
       const url = input.value.trim();
       const valid = /^https:\/\/(github\.com|gitlab\.com)\/[\w-]+\/[\w.-]+\/?$/i;
       if (!valid.test(url)) { status.textContent = t.invalid; return; }
-
       submit.disabled = true;
       submit.textContent = t.sending;
       status.textContent = '';
