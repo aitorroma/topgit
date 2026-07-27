@@ -1,9 +1,9 @@
-const CACHE_NAME = 'topgit-pwa-v2';
+const CACHE_NAME = 'topgit-pwa-v3';
 const APP_SHELL = [
   '/install.html',
   '/share.html',
   '/manifest.webmanifest',
-  '/topgit.jpg'
+  '/app-icon.svg'
 ];
 
 self.addEventListener('install', event => {
