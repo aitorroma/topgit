@@ -1,0 +1,30 @@
+{
+  "id": "/",
+  "name": "TOP GIT",
+  "short_name": "TOP GIT",
+  "description": "Share GitHub and GitLab repositories directly to TOP GIT.",
+  "lang": "en",
+  "start_url": "/install.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#FF4B4B",
+  "icons": [
+    {
+      "src": "/topgit.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "share_target": {
+    "action": "/share.html",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
