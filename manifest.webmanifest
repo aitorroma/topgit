@@ -11,9 +11,9 @@
   "theme_color": "#FF4B4B",
   "icons": [
     {
-      "src": "/app-icon.svg",
+      "src": "/topgit.jpg",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/jpeg",
       "purpose": "any"
     }
   ],
