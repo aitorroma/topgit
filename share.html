@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FF4B4B">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/app-icon.svg" type="image/svg+xml">
-  <title>Enviar a TOP GIT</title>
+  <title>Send to TOP GIT</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; font-family: system-ui, sans-serif; background: #f8fafc; color: #1e293b; }
@@ -22,25 +22,43 @@
 </head>
 <body>
   <main>
-    <button id="close" class="close-button" type="button" aria-label="Cerrar">×</button>
+    <button id="close" class="close-button" type="button">×</button>
     <img src="/app-icon.svg" alt="TOP GIT">
-    <h1 id="status">Enviando a TOP GIT…</h1>
-    <p id="detail">Procesando el enlace compartido.</p>
-    <button id="retry" type="button" hidden>Reintentar</button>
+    <h1 id="status"></h1>
+    <p id="detail"></p>
+    <button id="retry" type="button" hidden></button>
   </main>
 
   <script>
+    const translations = {
+      en: { htmlLang: 'en', pageTitle: 'Send to TOP GIT', close: 'Close', sending: 'Sending to TOP GIT…', processing: 'Processing the shared link.', invalid: 'Invalid link', invalidDetail: 'Only GitHub or GitLab repositories are accepted.', added: 'Added to TOP GIT', exists: 'Already in TOP GIT', timeout: 'Request timed out', failed: 'Could not send', failedDetail: 'Check your connection and try again.', retry: 'Try again' },
+      es: { htmlLang: 'es', pageTitle: 'Enviar a TOP GIT', close: 'Cerrar', sending: 'Enviando a TOP GIT…', processing: 'Procesando el enlace compartido.', invalid: 'Enlace no válido', invalidDetail: 'Solo se aceptan repositorios de GitHub o GitLab.', added: 'Añadido a TOP GIT', exists: 'Ya estaba en TOP GIT', timeout: 'Tiempo de espera agotado', failed: 'No se pudo enviar', failedDetail: 'Comprueba la conexión y vuelve a intentarlo.', retry: 'Reintentar' },
+      it: { htmlLang: 'it', pageTitle: 'Invia a TOP GIT', close: 'Chiudi', sending: 'Invio a TOP GIT…', processing: 'Elaborazione del link condiviso.', invalid: 'Link non valido', invalidDetail: 'Sono accettati solo repository GitHub o GitLab.', added: 'Aggiunto a TOP GIT', exists: 'Era già presente in TOP GIT', timeout: 'Tempo di attesa scaduto', failed: 'Invio non riuscito', failedDetail: 'Controlla la connessione e riprova.', retry: 'Riprova' },
+      'pt-br': { htmlLang: 'pt-BR', pageTitle: 'Enviar para TOP GIT', close: 'Fechar', sending: 'Enviando para TOP GIT…', processing: 'Processando o link compartilhado.', invalid: 'Link inválido', invalidDetail: 'Apenas repositórios do GitHub ou GitLab são aceitos.', added: 'Adicionado ao TOP GIT', exists: 'Já estava no TOP GIT', timeout: 'Tempo de espera esgotado', failed: 'Não foi possível enviar', failedDetail: 'Verifique a conexão e tente novamente.', retry: 'Tentar novamente' }
+    };
+
     const WEBHOOK_URL = 'https://api.nimbox360.com/webhook/7b0ebcde-5847-484b-98ad-5b78cc2c10a3';
     const params = new URLSearchParams(location.search);
+    const browserLang = (navigator.language || 'en').toLowerCase();
+    const requestedLang = params.get('lang') || localStorage.getItem('topgit-language') || (browserLang.startsWith('es') ? 'es' : browserLang.startsWith('it') ? 'it' : browserLang.startsWith('pt') ? 'pt-br' : 'en');
+    const lang = translations[requestedLang] ? requestedLang : 'en';
+    const t = translations[lang];
+    localStorage.setItem('topgit-language', lang);
+    document.documentElement.lang = t.htmlLang;
+    document.title = t.pageTitle;
+
     const statusEl = document.getElementById('status');
     const detailEl = document.getElementById('detail');
     const retryButton = document.getElementById('retry');
     const closeButton = document.getElementById('close');
+    closeButton.setAttribute('aria-label', t.close);
+    retryButton.textContent = t.retry;
+    statusEl.textContent = t.sending;
+    detailEl.textContent = t.processing;
 
     function extractRepositoryUrl() {
       const values = [params.get('url'), params.get('text'), params.get('title')].filter(Boolean);
-      const combined = values.join(' ');
-      const match = combined.match(/https:\/\/(?:github\.com|gitlab\.com)\/[\w-]+\/[\w.-]+\/?/i);
+      const match = values.join(' ').match(/https:\/\/(?:github\.com|gitlab\.com)\/[\w-]+\/[\w.-]+\/?/i);
       return match ? match[0].replace(/[),.;!?]+$/, '') : '';
     }
 
@@ -57,46 +75,26 @@
     async function submit() {
       const repositoryUrl = extractRepositoryUrl();
       retryButton.hidden = true;
+      if (!repositoryUrl) { statusEl.textContent = t.invalid; detailEl.textContent = t.invalidDetail; return; }
 
-      if (!repositoryUrl) {
-        statusEl.textContent = 'Enlace no válido';
-        detailEl.textContent = 'Solo se aceptan repositorios de GitHub o GitLab.';
-        return;
-      }
-
-      statusEl.textContent = 'Enviando a TOP GIT…';
+      statusEl.textContent = t.sending;
       detailEl.textContent = repositoryUrl;
-
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000);
 
       try {
-        const response = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: repositoryUrl }),
-          signal: controller.signal
-        });
-
+        const response = await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: repositoryUrl }), signal: controller.signal });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
         const result = await response.json();
-        if (result.result === 'added') {
-          statusEl.textContent = 'Añadido a TOP GIT';
-          detailEl.textContent = repositoryUrl;
-        } else if (result.result === 'exist') {
-          statusEl.textContent = 'Ya estaba en TOP GIT';
-          detailEl.textContent = repositoryUrl;
-        } else {
-          throw new Error('Respuesta inesperada');
-        }
+        if (result.result === 'added') statusEl.textContent = t.added;
+        else if (result.result === 'exist') statusEl.textContent = t.exists;
+        else throw new Error('Unexpected response');
+        detailEl.textContent = repositoryUrl;
       } catch (error) {
-        statusEl.textContent = error.name === 'AbortError' ? 'Tiempo de espera agotado' : 'No se pudo enviar';
-        detailEl.textContent = 'Comprueba la conexión y vuelve a intentarlo.';
+        statusEl.textContent = error.name === 'AbortError' ? t.timeout : t.failed;
+        detailEl.textContent = t.failedDetail;
         retryButton.hidden = false;
-      } finally {
-        clearTimeout(timeoutId);
-      }
+      } finally { clearTimeout(timeoutId); }
     }
 
     closeButton.addEventListener('click', closeShareWindow);
