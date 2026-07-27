@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FF4B4B">
-  <meta name="description" content="Instala TOP GIT para compartir repositorios desde Android.">
+  <meta id="description" name="description" content="Install TOP GIT to share repositories from Android.">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/app-icon.svg" type="image/svg+xml">
-  <title>Instalar TOP GIT</title>
+  <title>Install TOP GIT</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; font-family: system-ui, sans-serif; background: #f8fafc; color: #1e293b; }
@@ -25,49 +25,89 @@
 <body>
   <main>
     <img src="/app-icon.svg" alt="TOP GIT">
-    <h1>Compartir en TOP GIT</h1>
-    <p>Instala esta aplicación web y TOP GIT aparecerá como destino en el menú Compartir de Android.</p>
-    <button id="install" type="button" hidden>Instalar TOP GIT</button>
-    <p id="message">Preparando instalación…</p>
-    <a href="/">Volver a TOP GIT</a>
+    <h1 id="title"></h1>
+    <p id="intro"></p>
+    <button id="install" type="button" hidden></button>
+    <p id="message"></p>
+    <a id="back" href="/"></a>
   </main>
 
   <script>
+    const translations = {
+      en: {
+        htmlLang: 'en', title: 'Share with TOP GIT', pageTitle: 'Install TOP GIT',
+        description: 'Install TOP GIT to share repositories from Android.',
+        intro: 'Install this web app and TOP GIT will appear as a destination in the Android Share menu.',
+        install: 'Install TOP GIT', preparing: 'Preparing installation…', ready: 'Tap the button to install it.',
+        accepted: 'TOP GIT is installed. You can now use it from Share.', cancelled: 'Installation cancelled.',
+        installed: 'TOP GIT is installed. It will now appear in the Share menu.',
+        manual: 'In Chrome, open the ⋮ menu and tap “Install app” if the button does not appear.', back: 'Back to TOP GIT'
+      },
+      es: {
+        htmlLang: 'es', title: 'Compartir en TOP GIT', pageTitle: 'Instalar TOP GIT',
+        description: 'Instala TOP GIT para compartir repositorios desde Android.',
+        intro: 'Instala esta aplicación web y TOP GIT aparecerá como destino en el menú Compartir de Android.',
+        install: 'Instalar TOP GIT', preparing: 'Preparando instalación…', ready: 'Pulsa el botón para instalarla.',
+        accepted: 'TOP GIT se ha instalado. Ya puedes usarlo desde Compartir.', cancelled: 'Instalación cancelada.',
+        installed: 'TOP GIT está instalado. Ya aparecerá en el menú Compartir.',
+        manual: 'En Chrome, abre el menú ⋮ y pulsa “Instalar aplicación” si no aparece el botón.', back: 'Volver a TOP GIT'
+      },
+      it: {
+        htmlLang: 'it', title: 'Condividi con TOP GIT', pageTitle: 'Installa TOP GIT',
+        description: 'Installa TOP GIT per condividere repository da Android.',
+        intro: 'Installa questa web app e TOP GIT apparirà come destinazione nel menu Condividi di Android.',
+        install: 'Installa TOP GIT', preparing: 'Preparazione installazione…', ready: 'Tocca il pulsante per installarla.',
+        accepted: 'TOP GIT è stato installato. Ora puoi usarlo dal menu Condividi.', cancelled: 'Installazione annullata.',
+        installed: 'TOP GIT è installato. Ora apparirà nel menu Condividi.',
+        manual: 'In Chrome, apri il menu ⋮ e tocca “Installa app” se il pulsante non appare.', back: 'Torna a TOP GIT'
+      },
+      'pt-br': {
+        htmlLang: 'pt-BR', title: 'Compartilhar com TOP GIT', pageTitle: 'Instalar TOP GIT',
+        description: 'Instale o TOP GIT para compartilhar repositórios pelo Android.',
+        intro: 'Instale este app web e o TOP GIT aparecerá como destino no menu Compartilhar do Android.',
+        install: 'Instalar TOP GIT', preparing: 'Preparando instalação…', ready: 'Toque no botão para instalar.',
+        accepted: 'O TOP GIT foi instalado. Agora você pode usá-lo pelo menu Compartilhar.', cancelled: 'Instalação cancelada.',
+        installed: 'O TOP GIT está instalado. Ele aparecerá no menu Compartilhar.',
+        manual: 'No Chrome, abra o menu ⋮ e toque em “Instalar app” se o botão não aparecer.', back: 'Voltar ao TOP GIT'
+      }
+    };
+
+    const params = new URLSearchParams(location.search);
+    const browserLang = (navigator.language || 'en').toLowerCase();
+    const requestedLang = params.get('lang') || localStorage.getItem('topgit-language') || (browserLang.startsWith('es') ? 'es' : browserLang.startsWith('it') ? 'it' : browserLang.startsWith('pt') ? 'pt-br' : 'en');
+    const lang = translations[requestedLang] ? requestedLang : 'en';
+    const t = translations[lang];
+    localStorage.setItem('topgit-language', lang);
+    document.documentElement.lang = t.htmlLang;
+    document.title = t.pageTitle;
+    document.getElementById('description').content = t.description;
+    document.getElementById('title').textContent = t.title;
+    document.getElementById('intro').textContent = t.intro;
+    document.getElementById('install').textContent = t.install;
+    document.getElementById('message').textContent = t.preparing;
+    document.getElementById('back').textContent = t.back;
+
     const installButton = document.getElementById('install');
     const message = document.getElementById('message');
     let deferredPrompt;
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').catch(console.error);
-    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js').catch(console.error);
 
     window.addEventListener('beforeinstallprompt', event => {
-      event.preventDefault();
-      deferredPrompt = event;
-      installButton.hidden = false;
-      message.textContent = 'Pulsa el botón para instalarla.';
+      event.preventDefault(); deferredPrompt = event; installButton.hidden = false; message.textContent = t.ready;
     });
 
     installButton.addEventListener('click', async () => {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       const choice = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      installButton.hidden = true;
-      message.textContent = choice.outcome === 'accepted'
-        ? 'TOP GIT se ha instalado. Ya puedes usarlo desde Compartir.'
-        : 'Instalación cancelada.';
+      deferredPrompt = null; installButton.hidden = true;
+      message.textContent = choice.outcome === 'accepted' ? t.accepted : t.cancelled;
     });
 
-    window.addEventListener('appinstalled', () => {
-      installButton.hidden = true;
-      message.textContent = 'TOP GIT está instalado. Ya aparecerá en el menú Compartir.';
-    });
-
+    window.addEventListener('appinstalled', () => { installButton.hidden = true; message.textContent = t.installed; });
     setTimeout(() => {
-      if (!deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
-        message.textContent = 'En Chrome, abre el menú ⋮ y pulsa “Instalar aplicación” si no aparece el botón.';
-      }
+      if (!deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) message.textContent = t.manual;
     }, 1500);
   </script>
 </body>
