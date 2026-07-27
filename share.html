@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FF4B4B">
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="icon" href="/app-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/topgit.jpg" type="image/jpeg">
   <title>Send to TOP GIT</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; font-family: system-ui, sans-serif; background: #f8fafc; color: #1e293b; }
     main { position: relative; width: min(100%, 420px); background: #fff; border-radius: 18px; padding: 28px; text-align: center; box-shadow: 0 12px 40px rgba(15, 23, 42, .12); }
-    img { width: 72px; height: 72px; border-radius: 14px; object-fit: contain; }
+    img { width: 72px; height: 72px; border-radius: 14px; object-fit: cover; }
     h1 { margin: 18px 0 10px; font-size: 1.45rem; }
     p { margin: 0; color: #64748b; overflow-wrap: anywhere; }
     button { margin-top: 22px; border: 0; border-radius: 10px; padding: 12px 18px; background: #FF4B4B; color: white; font-weight: 700; cursor: pointer; }
@@ -23,7 +23,7 @@
 <body>
   <main>
     <button id="close" class="close-button" type="button">×</button>
-    <img src="/app-icon.svg" alt="TOP GIT">
+    <img src="/topgit.jpg" alt="TOP GIT">
     <h1 id="status"></h1>
     <p id="detail"></p>
     <button id="retry" type="button" hidden></button>
