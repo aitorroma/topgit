@@ -94,11 +94,6 @@
       </div>
     </div>
 
-    <div class="card">
-      <h2 id="quickstart-title"></h2>
-      <pre><code id="quickstart-code"></code></pre>
-      <p id="quickstart-note"></p>
-    </div>
 
     <footer>TOP GIT</footer>
   </div>
@@ -126,14 +121,6 @@
           { label: "List all tags", code: 'curl -s "https://topgit.us/api/tags"' },
           { label: "Get all bookmarks", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
         ],
-        quickstartTitle: "Quick Start for AI Agents",
-        quickstartCode: `// When a user asks to find projects or tools:
-// 1. Extract keywords from their request
-// 2. Call the API
-const res = await fetch("https://topgit.us/api/search?q=YOUR_KEYWORDS&limit=10");
-const data = await res.json();
-// 3. Present results with title, URL, description, and tags`,
-        quickstartNote: "Tip: Combine keywords with tags for more precise results."
       },
       es: {
         skillTitle: "Skill de TOPGit para IA",
@@ -156,14 +143,6 @@ const data = await res.json();
           { label: "Listar todos los tags", code: 'curl -s "https://topgit.us/api/tags"' },
           { label: "Obtener todos los bookmarks", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
         ],
-        quickstartTitle: "Inicio rápido para agentes de IA",
-        quickstartCode: `// Cuando un usuario pide encontrar proyectos o herramientas:
-// 1. Extrae palabras clave de su petición
-// 2. Llama a la API
-const res = await fetch("https://topgit.us/api/search?q=TUS_PALABRAS_CLAVE&limit=10");
-const data = await res.json();
-// 3. Presenta resultados con título, URL, descripción y tags`,
-        quickstartNote: "Consejo: Combina palabras clave con tags para resultados más precisos."
       },
       it: {
         skillTitle: "Skill TOPGit per IA",
@@ -186,14 +165,6 @@ const data = await res.json();
           { label: "Elenca tutti i tag", code: 'curl -s "https://topgit.us/api/tags"' },
           { label: "Ottieni tutti i bookmark", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
         ],
-        quickstartTitle: "Guida rapida per agenti IA",
-        quickstartCode: `// Quando un utente chiede di trovare progetti o strumenti:
-// 1. Estrai le parole chiave dalla richiesta
-// 2. Chiama l'API
-const res = await fetch("https://topgit.us/api/search?q=TUE_PAROLE_CHIAVE&limit=10");
-const data = await res.json();
-// 3. Presenta i risultati con titolo, URL, descrizione e tag`,
-        quickstartNote: "Suggerimento: Combina le parole chiave con i tag per risultati più precisi."
       },
       "pt-br": {
         skillTitle: "Skill TOPGit para IA",
@@ -216,14 +187,6 @@ const data = await res.json();
           { label: "Listar todas as tags", code: 'curl -s "https://topgit.us/api/tags"' },
           { label: "Obter todos os bookmarks", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
         ],
-        quickstartTitle: "Início rápido para agentes de IA",
-        quickstartCode: `// Quando um usuário pede para encontrar projetos ou ferramentas:
-// 1. Extraia palavras-chave do pedido
-// 2. Chame a API
-const res = await fetch("https://topgit.us/api/search?q=SUAS_PALAVRAS_CHAVE&limit=10");
-const data = await res.json();
-// 3. Apresente os resultados com título, URL, descrição e tags`,
-        quickstartNote: "Dica: Combine palavras-chave com tags para resultados mais precisos."
       }
     };
 
@@ -297,9 +260,6 @@ const data = await res.json();
         codeContainer.appendChild(pre);
       });
 
-      document.getElementById('quickstart-title').textContent = t.quickstartTitle;
-      document.getElementById('quickstart-code').textContent = t.quickstartCode;
-      document.getElementById('quickstart-note').textContent = t.quickstartNote;
     }
 
     // Tabs

@@ -1,7 +1,7 @@
 const CACHE_NAME = 'topgit-pwa-v3';
 const APP_SHELL = [
-  '/install.html',
-  '/share.html',
+  '/install',
+  '/share',
   '/manifest.webmanifest',
   '/app-icon.svg'
 ];

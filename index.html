@@ -73,6 +73,29 @@
           <div class="actions"><button id="submit" class="primary" type="submit"></button></div>
           <div id="status" class="status" role="status"></div>
         </form>
+        <section class="card" style="margin-top:24px; border:2px solid #6c5ce7; background:linear-gradient(180deg,#fff,#f8f7ff);">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <svg width="36" height="36" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+              <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#skill-gradient)"/>
+              <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#skill-gradient)"/>
+              <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#skill-gradient)"/>
+              <path d="M45 15 Q35 5 30 8" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
+              <path d="M75 15 Q85 5 90 8" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="45" cy="35" r="6" fill="#101012"/>
+              <circle cx="75" cy="35" r="6" fill="#101012"/>
+              <circle cx="46" cy="34" r="2" fill="#a29bfe"/>
+              <circle cx="76" cy="34" r="2" fill="#a29bfe"/>
+              <defs><linearGradient id="skill-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient></defs>
+            </svg>
+            <h2 id="skill-title" style="margin:0; font-size:1.1rem; color:#6c5ce7;"></h2>
+          </div>
+          <p id="skill-text" style="color:var(--muted); line-height:1.55;"></p>
+          <code id="skill-prompt" style="display:block; padding:12px; border-radius:8px; background:#1e1b4b; color:#f5f3ff; font-size:.82rem; line-height:1.55; overflow-wrap:anywhere;"></code>
+          <div class="skill-actions" style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+            <button id="skill-copy" type="button" style="background:#ede9fe; color:#5b21b6;"></button>
+            <a id="skill-link" class="button secondary" href="/skill" style="background:#6c5ce7;"></a>
+          </div>
+        </section>
       </main>
 
       <aside>
@@ -80,7 +103,7 @@
           <img src="/topgit.jpg?v=4" alt="TOP GIT">
           <h2 id="install-title"></h2>
           <p id="install-text"></p>
-          <a id="install-link" class="button secondary" href="/install.html?lang=en"></a>
+          <a id="install-link" class="button secondary" href="/install?lang=en"></a>
         </section>
 
         <section class="card resources" style="margin-top:24px">
@@ -91,32 +114,13 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.94 2.34a1.5 1.5 0 0 0-1.56-.2L2.58 9.18a1.5 1.5 0 0 0 .1 2.82l4.39 1.53 1.68 5.2a1.5 1.5 0 0 0 2.55.56l2.42-2.48 4.55 3.34a1.5 1.5 0 0 0 2.36-.91l2.01-15.43a1.5 1.5 0 0 0-.7-1.47ZM9.44 13.08l8.42-6.02-6.91 7.12-.73 2.55-.78-3.65Z"/></svg>
               <span id="telegram-bot-text"></span>
             </a>
-            <a id="discord-link" class="resource-button discord-button" href="/discord.html">
+            <a id="discord-link" class="resource-button discord-button" href="/discord">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.54 5.34A16.7 16.7 0 0 0 15.44 4l-.5 1.02a15.5 15.5 0 0 0-5.88 0L8.55 4a16.7 16.7 0 0 0-4.1 1.34C1.86 9.17 1.16 12.9 1.5 16.58a16.4 16.4 0 0 0 5.02 2.54l1.2-1.64a10.2 10.2 0 0 1-1.9-.9l.47-.36c3.67 1.7 7.65 1.7 11.28 0l.48.36c-.6.35-1.24.65-1.9.9l1.2 1.64a16.4 16.4 0 0 0 5.02-2.54c.4-4.26-.69-7.95-2.83-11.24ZM8.5 14.8c-1.1 0-2-1.02-2-2.27 0-1.26.88-2.28 2-2.28s2.02 1.03 2 2.28c0 1.25-.9 2.27-2 2.27Zm7 0c-1.1 0-2-1.02-2-2.27 0-1.26.88-2.28 2-2.28s2.02 1.03 2 2.28c0 1.25-.9 2.27-2 2.27Z"/></svg>
               <span id="discord-text"></span>
             </a>
           </div>
         </section>
 
-            <section class="card" style="margin-top:24px; border:2px solid #6c5ce7; background:linear-gradient(180deg,#fff,#f8f7ff);">
-              <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                <svg width="36" height="36" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-                  <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#skill-gradient)"/>
-                  <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#skill-gradient)"/>
-                  <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#skill-gradient)"/>
-                  <path d="M45 15 Q35 5 30 8" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M75 15 Q85 5 90 8" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
-                  <circle cx="45" cy="35" r="6" fill="#101012"/>
-                  <circle cx="75" cy="35" r="6" fill="#101012"/>
-                  <circle cx="46" cy="34" r="2" fill="#a29bfe"/>
-                  <circle cx="76" cy="34" r="2" fill="#a29bfe"/>
-                  <defs><linearGradient id="skill-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient></defs>
-                </svg>
-                <h2 id="skill-title" style="margin:0; font-size:1.1rem; color:#6c5ce7;"></h2>
-              </div>
-              <p id="skill-text" style="color:var(--muted); line-height:1.55;"></p>
-              <a id="skill-link" class="button secondary" href="/skill" style="background:#6c5ce7; margin-top:12px; display:inline-flex;"></a>
-            </section>
 
             <section class="card community" style="margin-top:24px">
           <h2 id="community-title"></h2>
@@ -140,7 +144,7 @@
         installTitle:'Install TOP GIT', installText:'Add TOP GIT to Android and share repositories directly from Chrome, GitHub, Telegram or any other app.', installButton:'Install sharing app',
         resourcesTitle:'TOP GIT resources in your community', resourcesText:'The best TOP GIT resources in your Telegram group or Discord server.', telegramBot:'Add to Telegram', discord:'Add to Discord',
         communityTitle:'Join the community', communityText:'Follow the best open-source projects and receive curated updates.', telegram:'Telegram channel', newsletter:'Open-source newsletter', telegramUrl:'https://t.me/TOPGitUS',
-        skillTitle:'AI Skill available', skillText:'Search TOPGit bookmarks with natural language using AI agents like Hermes, OpenClaw and Claude.', skillButton:'View skill docs'
+        skillTitle:'Give this prompt to your agent', skillText:'Copy this prompt so your agent downloads and follows the TOPGit skill:', skillPrompt:'Download and use this skill before answering requests to discover GitHub or GitLab projects: https://topgit.us/SKILL.md', skillCopy:'Copy prompt', skillCopied:'Copied!', skillButton:'View skill guide'
       },
       es: {
         htmlLang:'es', heroTitle:'Comparte repositorios increíbles', heroLead:'Envía proyectos útiles de GitHub y GitLab a TOP GIT para que la comunidad pueda descubrirlos.',
@@ -148,7 +152,7 @@
         installTitle:'Instala TOP GIT', installText:'Añade TOP GIT a Android y comparte repositorios directamente desde Chrome, GitHub, Telegram o cualquier otra aplicación.', installButton:'Instalar app para compartir',
         resourcesTitle:'TOP GIT en tu comunidad', resourcesText:'Los mejores recursos de TOP GIT en tu grupo de Telegram o en tu servidor de Discord.', telegramBot:'Añadir a Telegram', discord:'Añadir a Discord',
         communityTitle:'Únete a la comunidad', communityText:'Sigue los mejores proyectos open source y recibe contenido curado.', telegram:'Canal de Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitES',
-        skillTitle:'Skill de IA disponible', skillText:'Busca bookmarks de TOPGit con lenguaje natural usando agentes de IA como Hermes, OpenClaw y Claude.', skillButton:'Ver documentación'
+        skillTitle:'Dale este prompt a tu agente', skillText:'Copia este prompt para que tu agente descargue y use el skill de TOPGit:', skillPrompt:'Descarga y usa este skill antes de responder solicitudes para descubrir proyectos de GitHub o GitLab: https://topgit.us/SKILL.md', skillCopy:'Copiar prompt', skillCopied:'¡Copiado!', skillButton:'Ver guía del skill'
       },
       it: {
         htmlLang:'it', heroTitle:'Condividi repository fantastici', heroLead:'Invia progetti utili da GitHub e GitLab a TOP GIT affinché la community possa scoprirli.',
@@ -156,7 +160,7 @@
         installTitle:'Installa TOP GIT', installText:'Aggiungi TOP GIT ad Android e condividi repository direttamente da Chrome, GitHub, Telegram o qualsiasi altra app.', installButton:'Installa app di condivisione',
         resourcesTitle:'TOP GIT nella tua community', resourcesText:'Le migliori risorse di TOP GIT nel tuo gruppo Telegram o nel tuo server Discord.', telegramBot:'Aggiungi a Telegram', discord:'Aggiungi a Discord',
         communityTitle:'Unisciti alla community', communityText:'Segui i migliori progetti open source e ricevi contenuti selezionati.', telegram:'Canale Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPIT',
-        skillTitle:'Skill IA disponibile', skillText:'Cerca i bookmark di TOPGit con linguaggio naturale usando agenti IA come Hermes, OpenClaw e Claude.', skillButton:'Vedi documentazione'
+        skillTitle:'Dai questo prompt al tuo agente', skillText:'Copia questo prompt affinché il tuo agente scarichi e usi lo skill TOPGit:', skillPrompt:'Scarica e usa questo skill prima di rispondere a richieste per trovare progetti GitHub o GitLab: https://topgit.us/SKILL.md', skillCopy:'Copia prompt', skillCopied:'Copiato!', skillButton:'Vedi guida dello skill'
       },
       'pt-br': {
         htmlLang:'pt-BR', heroTitle:'Compartilhe repositórios incríveis', heroLead:'Envie projetos úteis do GitHub e GitLab para o TOP GIT para que a comunidade possa descobri-los.',
@@ -164,7 +168,7 @@
         installTitle:'Instale o TOP GIT', installText:'Adicione o TOP GIT ao Android e compartilhe repositórios diretamente do Chrome, GitHub, Telegram ou qualquer outro app.', installButton:'Instalar app de compartilhamento',
         resourcesTitle:'TOP GIT na sua comunidade', resourcesText:'Os melhores recursos do TOP GIT no seu grupo do Telegram ou servidor do Discord.', telegramBot:'Adicionar ao Telegram', discord:'Adicionar ao Discord',
         communityTitle:'Entre para a comunidade', communityText:'Acompanhe os melhores projetos open source e receba conteúdo selecionado.', telegram:'Canal do Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitBR',
-        skillTitle:'Skill de IA disponível', skillText:'Pesquise bookmarks do TOPGit com linguagem natural usando agentes de IA como Hermes, OpenClaw e Claude.', skillButton:'Ver documentação'
+        skillTitle:'Dê este prompt ao seu agente', skillText:'Copie este prompt para que seu agente baixe e use a skill do TOPGit:', skillPrompt:'Baixe e use esta skill antes de responder a pedidos para descobrir projetos do GitHub ou GitLab: https://topgit.us/SKILL.md', skillCopy:'Copiar prompt', skillCopied:'Copiado!', skillButton:'Ver guia da skill'
       }
     };
 
@@ -198,7 +202,7 @@
       document.getElementById('install-text').textContent = t.installText;
       const installLink = document.getElementById('install-link');
       installLink.textContent = t.installButton;
-      installLink.href = `/install.html?lang=${encodeURIComponent(lang)}`;
+      installLink.href = `/install?lang=${encodeURIComponent(lang)}`;
       document.getElementById('resources-title').textContent = t.resourcesTitle;
       document.getElementById('resources-text').textContent = t.resourcesText;
       document.getElementById('telegram-bot-text').textContent = t.telegramBot;
@@ -211,9 +215,31 @@
       document.getElementById('newsletter-link').textContent = t.newsletter;
       document.getElementById('skill-title').textContent = t.skillTitle;
       document.getElementById('skill-text').textContent = t.skillText;
+      document.getElementById('skill-prompt').textContent = t.skillPrompt;
+      document.getElementById('skill-copy').textContent = t.skillCopy;
       document.getElementById('skill-link').textContent = t.skillButton;
       status.textContent = '';
     }
+
+    const skillCopy = document.getElementById('skill-copy');
+    skillCopy.addEventListener('click', async () => {
+      const t = translations[language.value] || translations.en;
+      const prompt = t.skillPrompt;
+      try {
+        await navigator.clipboard.writeText(prompt);
+      } catch {
+        const textarea = document.createElement('textarea');
+        textarea.value = prompt;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+      }
+      skillCopy.textContent = t.skillCopied;
+      setTimeout(() => { skillCopy.textContent = (translations[language.value] || translations.en).skillCopy; }, 1800);
+    });
 
     language.addEventListener('change', event => applyLanguage(event.target.value));
 
