@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FF4B4B">
+  <meta name="description" content="TOPGit AI Skill - Search and browse bookmarks with natural language">
+  <link rel="icon" href="/topgit.jpg?v=4" type="image/jpeg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://topgit.us/skill">
+  <meta property="og:title" content="TOPGit AI Skill">
+  <meta property="og:description" content="Search and browse TOPGit bookmarks with natural language">
+  <meta property="og:image" content="https://topgit.us/topgit.jpg?v=4">
+  <title>TOPGit AI Skill</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { color-scheme: light; --accent:#FF4B4B; --text:#1e293b; --muted:#64748b; --surface:#fff; --bg:#f8fafc; --code-bg:#f1f5f9; }
+    @media (prefers-color-scheme: dark) { :root { --text:#e2e8f0; --muted:#94a3b8; --surface:#1e293b; --bg:#0f172a; --code-bg:#1e293b; } }
+    body { margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.6; }
+    .container { width:min(900px, calc(100% - 32px)); margin:auto; padding:24px 0 48px; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:36px; }
+    .logo { display:flex; align-items:center; gap:10px; color:var(--accent); text-decoration:none; font-size:1.25rem; font-weight:800; }
+    .logo img { width:42px; height:42px; object-fit:cover; border-radius:8px; }
+    select { border:1px solid #e2e8f0; border-radius:10px; padding:10px 36px 10px 12px; background:white; color:var(--text); font-weight:600; }
+    @media (prefers-color-scheme: dark) { select { background:#1e293b; border-color:#334155; } }
+    .card { background:var(--surface); border-radius:18px; padding:28px; box-shadow:0 8px 28px rgba(15,23,42,.08); margin-bottom:20px; }
+    h1 { font-size:2rem; margin:0 0 8px; }
+    h2 { font-size:1.3rem; margin:28px 0 12px; color:var(--accent); }
+    h3 { font-size:1.1rem; margin:20px 0 8px; }
+    .lead { color:var(--muted); font-size:1.05rem; margin-bottom:24px; }
+    p { margin:8px 0; }
+    a { color:var(--accent); }
+    code { background:var(--code-bg); padding:2px 6px; border-radius:4px; font-size:0.9em; }
+    pre { background:var(--code-bg); padding:16px; border-radius:12px; overflow-x:auto; font-size:0.88em; line-height:1.5; }
+    pre code { background:none; padding:0; }
+    table { width:100%; border-collapse:collapse; margin:12px 0; }
+    th,td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--code-bg); }
+    th { font-weight:700; color:var(--accent); }
+    .badge { display:inline-block; background:var(--accent); color:white; padding:2px 8px; border-radius:6px; font-size:0.75rem; font-weight:700; margin-right:4px; }
+    .endpoint { display:flex; align-items:center; gap:8px; margin:8px 0; padding:12px; background:var(--code-bg); border-radius:10px; }
+    .method { background:var(--accent); color:white; padding:2px 8px; border-radius:4px; font-weight:700; font-size:0.8rem; }
+    .path { font-family:monospace; font-weight:600; }
+    footer { text-align:center; color:var(--muted); margin-top:28px; font-size:.9rem; }
+    .tab-bar { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .tab { padding:8px 16px; border-radius:8px; border:2px solid var(--code-bg); background:transparent; color:var(--text); cursor:pointer; font-weight:600; font-size:0.9rem; }
+    .tab.active { border-color:var(--accent); background:var(--accent); color:white; }
+    .lang-section { display:none; }
+    .lang-section.active { display:block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="logo" href="/"><img src="/topgit.jpg?v=4" alt="TOP GIT"><span>TOP GIT</span></a>
+      <select id="language" aria-label="Language">
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="pt-br">🇧🇷 Português</option>
+      </select>
+    </header>
+
+    <div class="card">
+      <h1 id="skill-title"></h1>
+      <p class="lead" id="skill-lead"></p>
+      <div class="tab-bar">
+        <button class="tab active" data-tab="overview" id="tab-overview"></button>
+        <button class="tab" data-tab="api" id="tab-api"></button>
+        <button class="tab" data-tab="examples" id="tab-examples"></button>
+      </div>
+
+      <!-- OVERVIEW -->
+      <div class="lang-section active" id="section-overview">
+        <h2 id="what-title"></h2>
+        <p id="what-text"></p>
+        <h3 id="features-title"></h3>
+        <ul id="features-list"></ul>
+      </div>
+
+      <!-- API -->
+      <div class="lang-section" id="section-api">
+        <h2>API</h2>
+        <p id="api-base"></p>
+        <p id="api-auth"></p>
+        <div id="endpoints-container"></div>
+        <h3 id="params-title"></h3>
+        <ul id="params-list"></ul>
+      </div>
+
+      <!-- EXAMPLES -->
+      <div class="lang-section" id="section-examples">
+        <h2 id="examples-title"></h2>
+        <div id="code-examples"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 id="quickstart-title"></h2>
+      <pre><code id="quickstart-code"></code></pre>
+      <p id="quickstart-note"></p>
+    </div>
+
+    <footer>TOP GIT</footer>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        skillTitle: "TOPGit AI Skill",
+        skillLead: "Search and browse TOPGit bookmarks with natural language. Designed for AI agents like Hermes, OpenClaw, and Claude.",
+        tabOverview: "Overview",
+        tabApi: "API",
+        tabExamples: "Examples",
+        whatTitle: "What is TOPGit?",
+        whatText: "TOPGit is a bookmark manager for developers. It collects and organizes useful GitHub and GitLab repositories shared by the community.",
+        featuresTitle: "Features",
+        features: ["1100+ curated developer bookmarks", "Natural language search", "Tag-based browsing (ai, docker, cybersecurity...)", "REST API — no authentication required", "Updated by the community"],
+        apiBase: "Base URL: https://topgit.us/api",
+        apiAuth: "All endpoints are read-only. No authentication required.",
+        paramsTitle: "Search Parameters",
+        params: ["q — Natural language or keyword query", "tag — Filter by tag name (e.g. ai, docker)", "limit — Max results (default: 10, max: 50)", "offset — Pagination offset"],
+        examplesTitle: "Code Examples",
+        codeExamples: [
+          { label: "Search by keywords", code: 'curl -s "https://topgit.us/api/search?q=docker+containers&limit=5"' },
+          { label: "Search by tag", code: 'curl -s "https://topgit.us/api/search?tag=cybersecurity&limit=10"' },
+          { label: "List all tags", code: 'curl -s "https://topgit.us/api/tags"' },
+          { label: "Get all bookmarks", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
+        ],
+        quickstartTitle: "Quick Start for AI Agents",
+        quickstartCode: `// When a user asks to find projects or tools:
+// 1. Extract keywords from their request
+// 2. Call the API
+const res = await fetch("https://topgit.us/api/search?q=YOUR_KEYWORDS&limit=10");
+const data = await res.json();
+// 3. Present results with title, URL, description, and tags`,
+        quickstartNote: "Tip: Combine keywords with tags for more precise results."
+      },
+      es: {
+        skillTitle: "Skill de TOPGit para IA",
+        skillLead: "Busca y explora bookmarks de TOPGit con lenguaje natural. Diseñado para agentes de IA como Hermes, OpenClaw y Claude.",
+        tabOverview: "Descripción",
+        tabApi: "API",
+        tabExamples: "Ejemplos",
+        whatTitle: "¿Qué es TOPGit?",
+        whatText: "TOPGit es un gestor de marcadores para desarrolladores. Recopila y organiza repositorios útiles de GitHub y GitLab compartidos por la comunidad.",
+        featuresTitle: "Características",
+        features: ["1100+ marcadores curados para desarrolladores", "Búsqueda en lenguaje natural", "Navegación por tags (ai, docker, cybersecurity...)", "API REST — sin autenticación requerida", "Actualizado por la comunidad"],
+        apiBase: "URL base: https://topgit.us/api",
+        apiAuth: "Todos los endpoints son de solo lectura. No se requiere autenticación.",
+        paramsTitle: "Parámetros de búsqueda",
+        params: ["q — Consulta en lenguaje natural o por palabras clave", "tag — Filtrar por nombre de tag (ej: ai, docker)", "limit — Máximo de resultados (default: 10, max: 50)", "offset — Offset de paginación"],
+        examplesTitle: "Ejemplos de código",
+        codeExamples: [
+          { label: "Buscar por palabras clave", code: 'curl -s "https://topgit.us/api/search?q=docker+containers&limit=5"' },
+          { label: "Buscar por tag", code: 'curl -s "https://topgit.us/api/search?tag=cybersecurity&limit=10"' },
+          { label: "Listar todos los tags", code: 'curl -s "https://topgit.us/api/tags"' },
+          { label: "Obtener todos los bookmarks", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
+        ],
+        quickstartTitle: "Inicio rápido para agentes de IA",
+        quickstartCode: `// Cuando un usuario pide encontrar proyectos o herramientas:
+// 1. Extrae palabras clave de su petición
+// 2. Llama a la API
+const res = await fetch("https://topgit.us/api/search?q=TUS_PALABRAS_CLAVE&limit=10");
+const data = await res.json();
+// 3. Presenta resultados con título, URL, descripción y tags`,
+        quickstartNote: "Consejo: Combina palabras clave con tags para resultados más precisos."
+      },
+      it: {
+        skillTitle: "Skill TOPGit per IA",
+        skillLead: "Cerca e sfoglia i bookmark di TOPGit con linguaggio naturale. Progettato per agenti IA come Hermes, OpenClaw e Claude.",
+        tabOverview: "Panoramica",
+        tabApi: "API",
+        tabExamples: "Esempi",
+        whatTitle: "Cos'è TOPGit?",
+        whatText: "TOPGit è un gestore di segnalibri per sviluppatori. Raccoglie e organizza repository utili di GitHub e GitLab condivisi dalla community.",
+        featuresTitle: "Caratteristiche",
+        features: ["1100+ segnalibri curati per sviluppatori", "Ricerca in linguaggio naturale", "Navigazione per tag (ai, docker, cybersecurity...)", "API REST — nessuna autenticazione richiesta", "Aggiornato dalla community"],
+        apiBase: "URL base: https://topgit.us/api",
+        apiAuth: "Tutti gli endpoint sono in sola lettura. Nessuna autenticazione richiesta.",
+        paramsTitle: "Parametri di ricerca",
+        params: ["q — Query in linguaggio naturale o per parole chiave", "tag — Filtra per nome tag (es. ai, docker)", "limit — Massimo risultati (default: 10, max: 50)", "offset — Offset di paginazione"],
+        examplesTitle: "Esempi di codice",
+        codeExamples: [
+          { label: "Cerca per parole chiave", code: 'curl -s "https://topgit.us/api/search?q=docker+containers&limit=5"' },
+          { label: "Cerca per tag", code: 'curl -s "https://topgit.us/api/search?tag=cybersecurity&limit=10"' },
+          { label: "Elenca tutti i tag", code: 'curl -s "https://topgit.us/api/tags"' },
+          { label: "Ottieni tutti i bookmark", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
+        ],
+        quickstartTitle: "Guida rapida per agenti IA",
+        quickstartCode: `// Quando un utente chiede di trovare progetti o strumenti:
+// 1. Estrai le parole chiave dalla richiesta
+// 2. Chiama l'API
+const res = await fetch("https://topgit.us/api/search?q=TUE_PAROLE_CHIAVE&limit=10");
+const data = await res.json();
+// 3. Presenta i risultati con titolo, URL, descrizione e tag`,
+        quickstartNote: "Suggerimento: Combina le parole chiave con i tag per risultati più precisi."
+      },
+      "pt-br": {
+        skillTitle: "Skill TOPGit para IA",
+        skillLead: "Pesquise e navegue pelos bookmarks do TOPGit com linguagem natural. Projetado para agentes de IA como Hermes, OpenClaw e Claude.",
+        tabOverview: "Visão Geral",
+        tabApi: "API",
+        tabExamples: "Exemplos",
+        whatTitle: "O que é TOPGit?",
+        whatText: "TOPGit é um gerenciador de marcadores para desenvolvedores. Coleta e organiza repositórios úteis do GitHub e GitLab compartilhados pela comunidade.",
+        featuresTitle: "Recursos",
+        features: ["1100+ marcadores curados para desenvolvedores", "Pesquisa em linguagem natural", "Navegação por tags (ai, docker, cybersecurity...)", "API REST — sem autenticação necessária", "Atualizado pela comunidade"],
+        apiBase: "URL base: https://topgit.us/api",
+        apiAuth: "Todos os endpoints são somente leitura. Sem autenticação necessária.",
+        paramsTitle: "Parâmetros de pesquisa",
+        params: ["q — Consulta em linguagem natural ou por palavras-chave", "tag — Filtrar por nome da tag (ex: ai, docker)", "limit — Máximo de resultados (padrão: 10, máx: 50)", "offset — Offset de paginação"],
+        examplesTitle: "Exemplos de código",
+        codeExamples: [
+          { label: "Pesquisar por palavras-chave", code: 'curl -s "https://topgit.us/api/search?q=docker+containers&limit=5"' },
+          { label: "Pesquisar por tag", code: 'curl -s "https://topgit.us/api/search?tag=cybersecurity&limit=10"' },
+          { label: "Listar todas as tags", code: 'curl -s "https://topgit.us/api/tags"' },
+          { label: "Obter todos os bookmarks", code: 'curl -s "https://topgit.us/api/all?limit=100"' }
+        ],
+        quickstartTitle: "Início rápido para agentes de IA",
+        quickstartCode: `// Quando um usuário pede para encontrar projetos ou ferramentas:
+// 1. Extraia palavras-chave do pedido
+// 2. Chame a API
+const res = await fetch("https://topgit.us/api/search?q=SUAS_PALAVRAS_CHAVE&limit=10");
+const data = await res.json();
+// 3. Apresente os resultados com título, URL, descrição e tags`,
+        quickstartNote: "Dica: Combine palavras-chave com tags para resultados mais precisos."
+      }
+    };
+
+    const endpoints = [
+      { method: "GET", path: "/search", descEn: "Search bookmarks", descEs: "Buscar bookmarks", descIt: "Cerca bookmark", descPt: "Pesquisar bookmarks" },
+      { method: "GET", path: "/all", descEn: "List all bookmarks", descEs: "Listar todos los bookmarks", descIt: "Elenca tutti i bookmark", descPt: "Listar todos os bookmarks" },
+      { method: "GET", path: "/tags", descEn: "List all tags", descEs: "Listar todos los tags", descIt: "Elenca tutti i tag", descPt: "Listar todas as tags" },
+      { method: "GET", path: "/stats", descEn: "Cache status", descEs: "Estado del caché", descIt: "Stato della cache", descPt: "Status do cache" }
+    ];
+
+    const lang = document.getElementById('language');
+
+    function detectLanguage() {
+      const stored = localStorage.getItem('topgit-language');
+      if (translations[stored]) return stored;
+      const browser = (navigator.language || 'en').toLowerCase();
+      if (browser.startsWith('es')) return 'es';
+      if (browser.startsWith('it')) return 'it';
+      if (browser.startsWith('pt')) return 'pt-br';
+      return 'en';
+    }
+
+    function applyLanguage(l) {
+      const t = translations[l] || translations.en;
+      localStorage.setItem('topgit-language', l);
+      document.documentElement.lang = t.htmlLang || l;
+      lang.value = l;
+
+      document.getElementById('skill-title').textContent = t.skillTitle;
+      document.getElementById('skill-lead').textContent = t.skillLead;
+      document.getElementById('tab-overview').textContent = t.tabOverview;
+      document.getElementById('tab-api').textContent = t.tabApi;
+      document.getElementById('tab-examples').textContent = t.tabExamples;
+      document.getElementById('what-title').textContent = t.whatTitle;
+      document.getElementById('what-text').textContent = t.whatText;
+      document.getElementById('features-title').textContent = t.featuresTitle;
+
+      const featuresList = document.getElementById('features-list');
+      featuresList.innerHTML = '';
+      t.features.forEach(f => { const li = document.createElement('li'); li.textContent = f; featuresList.appendChild(li); });
+
+      document.getElementById('api-base').textContent = t.apiBase;
+      document.getElementById('api-auth').textContent = t.apiAuth;
+      document.getElementById('params-title').textContent = t.paramsTitle;
+
+      const paramsList = document.getElementById('params-list');
+      paramsList.innerHTML = '';
+      t.params.forEach(p => { const li = document.createElement('li'); li.innerHTML = `<code>${p.split(' — ')[0]}</code> — ${p.split(' — ')[1]}`; paramsList.appendChild(li); });
+
+      const descKey = { en: 'descEn', es: 'descEs', it: 'descIt', 'pt-br': 'descPt' }[l] || 'descEn';
+      const endpointsContainer = document.getElementById('endpoints-container');
+      endpointsContainer.innerHTML = '';
+      endpoints.forEach(ep => {
+        const div = document.createElement('div');
+        div.className = 'endpoint';
+        div.innerHTML = `<span class="method">${ep.method}</span><span class="path">${ep.path}</span><span>${ep[descKey]}</span>`;
+        endpointsContainer.appendChild(div);
+      });
+
+      document.getElementById('examples-title').textContent = t.examplesTitle;
+      const codeContainer = document.getElementById('code-examples');
+      codeContainer.innerHTML = '';
+      t.codeExamples.forEach(ex => {
+        const h3 = document.createElement('h3');
+        h3.textContent = ex.label;
+        const pre = document.createElement('pre');
+        const code = document.createElement('code');
+        code.textContent = ex.code;
+        pre.appendChild(code);
+        codeContainer.appendChild(h3);
+        codeContainer.appendChild(pre);
+      });
+
+      document.getElementById('quickstart-title').textContent = t.quickstartTitle;
+      document.getElementById('quickstart-code').textContent = t.quickstartCode;
+      document.getElementById('quickstart-note').textContent = t.quickstartNote;
+    }
+
+    // Tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('section-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    lang.addEventListener('change', e => applyLanguage(e.target.value));
+    applyLanguage(detectLanguage());
+  </script>
+</body>
+</html>

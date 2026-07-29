@@ -98,7 +98,27 @@
           </div>
         </section>
 
-        <section class="card community" style="margin-top:24px">
+            <section class="card" style="margin-top:24px; border:2px solid #6c5ce7; background:linear-gradient(180deg,#fff,#f8f7ff);">
+              <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                <svg width="36" height="36" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+                  <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#skill-gradient)"/>
+                  <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#skill-gradient)"/>
+                  <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#skill-gradient)"/>
+                  <path d="M45 15 Q35 5 30 8" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M75 15 Q85 5 90 8" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="45" cy="35" r="6" fill="#101012"/>
+                  <circle cx="75" cy="35" r="6" fill="#101012"/>
+                  <circle cx="46" cy="34" r="2" fill="#a29bfe"/>
+                  <circle cx="76" cy="34" r="2" fill="#a29bfe"/>
+                  <defs><linearGradient id="skill-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient></defs>
+                </svg>
+                <h2 id="skill-title" style="margin:0; font-size:1.1rem; color:#6c5ce7;"></h2>
+              </div>
+              <p id="skill-text" style="color:var(--muted); line-height:1.55;"></p>
+              <a id="skill-link" class="button secondary" href="/skill" style="background:#6c5ce7; margin-top:12px; display:inline-flex;"></a>
+            </section>
+
+            <section class="card community" style="margin-top:24px">
           <h2 id="community-title"></h2>
           <p id="community-text"></p>
           <div class="links">
@@ -119,28 +139,32 @@
         label:'Repository URL', placeholder:'https://github.com/user/repository', submit:'Share repository', sending:'Sending…', invalid:'Only GitHub and GitLab repository URLs are allowed.', added:'Repository added successfully.', exists:'This repository was already in TOP GIT.', failed:'The repository could not be sent. Try again shortly.',
         installTitle:'Install TOP GIT', installText:'Add TOP GIT to Android and share repositories directly from Chrome, GitHub, Telegram or any other app.', installButton:'Install sharing app',
         resourcesTitle:'TOP GIT resources in your community', resourcesText:'The best TOP GIT resources in your Telegram group or Discord server.', telegramBot:'Add to Telegram', discord:'Add to Discord',
-        communityTitle:'Join the community', communityText:'Follow the best open-source projects and receive curated updates.', telegram:'Telegram channel', newsletter:'Open-source newsletter', telegramUrl:'https://t.me/TOPGitUS'
+        communityTitle:'Join the community', communityText:'Follow the best open-source projects and receive curated updates.', telegram:'Telegram channel', newsletter:'Open-source newsletter', telegramUrl:'https://t.me/TOPGitUS',
+        skillTitle:'AI Skill available', skillText:'Search TOPGit bookmarks with natural language using AI agents like Hermes, OpenClaw and Claude.', skillButton:'View skill docs'
       },
       es: {
         htmlLang:'es', heroTitle:'Comparte repositorios increíbles', heroLead:'Envía proyectos útiles de GitHub y GitLab a TOP GIT para que la comunidad pueda descubrirlos.',
         label:'URL del repositorio', placeholder:'https://github.com/usuario/repositorio', submit:'Compartir repositorio', sending:'Enviando…', invalid:'Solo se permiten URLs de repositorios de GitHub y GitLab.', added:'Repositorio añadido correctamente.', exists:'Este repositorio ya estaba en TOP GIT.', failed:'No se ha podido enviar el repositorio. Inténtalo de nuevo en unos instantes.',
         installTitle:'Instala TOP GIT', installText:'Añade TOP GIT a Android y comparte repositorios directamente desde Chrome, GitHub, Telegram o cualquier otra aplicación.', installButton:'Instalar app para compartir',
         resourcesTitle:'TOP GIT en tu comunidad', resourcesText:'Los mejores recursos de TOP GIT en tu grupo de Telegram o en tu servidor de Discord.', telegramBot:'Añadir a Telegram', discord:'Añadir a Discord',
-        communityTitle:'Únete a la comunidad', communityText:'Sigue los mejores proyectos open source y recibe contenido curado.', telegram:'Canal de Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitES'
+        communityTitle:'Únete a la comunidad', communityText:'Sigue los mejores proyectos open source y recibe contenido curado.', telegram:'Canal de Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitES',
+        skillTitle:'Skill de IA disponible', skillText:'Busca bookmarks de TOPGit con lenguaje natural usando agentes de IA como Hermes, OpenClaw y Claude.', skillButton:'Ver documentación'
       },
       it: {
         htmlLang:'it', heroTitle:'Condividi repository fantastici', heroLead:'Invia progetti utili da GitHub e GitLab a TOP GIT affinché la community possa scoprirli.',
         label:'URL del repository', placeholder:'https://github.com/utente/repository', submit:'Condividi repository', sending:'Invio…', invalid:'Sono consentiti solo URL di repository GitHub e GitLab.', added:'Repository aggiunto correttamente.', exists:'Questo repository era già presente in TOP GIT.', failed:'Impossibile inviare il repository. Riprova tra poco.',
         installTitle:'Installa TOP GIT', installText:'Aggiungi TOP GIT ad Android e condividi repository direttamente da Chrome, GitHub, Telegram o qualsiasi altra app.', installButton:'Installa app di condivisione',
         resourcesTitle:'TOP GIT nella tua community', resourcesText:'Le migliori risorse di TOP GIT nel tuo gruppo Telegram o nel tuo server Discord.', telegramBot:'Aggiungi a Telegram', discord:'Aggiungi a Discord',
-        communityTitle:'Unisciti alla community', communityText:'Segui i migliori progetti open source e ricevi contenuti selezionati.', telegram:'Canale Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitIT'
+        communityTitle:'Unisciti alla community', communityText:'Segui i migliori progetti open source e ricevi contenuti selezionati.', telegram:'Canale Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPIT',
+        skillTitle:'Skill IA disponibile', skillText:'Cerca i bookmark di TOPGit con linguaggio naturale usando agenti IA come Hermes, OpenClaw e Claude.', skillButton:'Vedi documentazione'
       },
       'pt-br': {
         htmlLang:'pt-BR', heroTitle:'Compartilhe repositórios incríveis', heroLead:'Envie projetos úteis do GitHub e GitLab para o TOP GIT para que a comunidade possa descobri-los.',
         label:'URL do repositório', placeholder:'https://github.com/usuario/repositorio', submit:'Compartilhar repositório', sending:'Enviando…', invalid:'Apenas URLs de repositórios do GitHub e GitLab são permitidas.', added:'Repositório adicionado com sucesso.', exists:'Este repositório já estava no TOP GIT.', failed:'Não foi possível enviar o repositório. Tente novamente em instantes.',
         installTitle:'Instale o TOP GIT', installText:'Adicione o TOP GIT ao Android e compartilhe repositórios diretamente do Chrome, GitHub, Telegram ou qualquer outro app.', installButton:'Instalar app de compartilhamento',
         resourcesTitle:'TOP GIT na sua comunidade', resourcesText:'Os melhores recursos do TOP GIT no seu grupo do Telegram ou servidor do Discord.', telegramBot:'Adicionar ao Telegram', discord:'Adicionar ao Discord',
-        communityTitle:'Entre para a comunidade', communityText:'Acompanhe os melhores projetos open source e receba conteúdo selecionado.', telegram:'Canal do Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitBR'
+        communityTitle:'Entre para a comunidade', communityText:'Acompanhe os melhores projetos open source e receba conteúdo selecionado.', telegram:'Canal do Telegram', newsletter:'Newsletter open source', telegramUrl:'https://t.me/TOPGitBR',
+        skillTitle:'Skill de IA disponível', skillText:'Pesquise bookmarks do TOPGit com linguagem natural usando agentes de IA como Hermes, OpenClaw e Claude.', skillButton:'Ver documentação'
       }
     };
 
@@ -185,6 +209,9 @@
       telegramLink.textContent = t.telegram;
       telegramLink.href = t.telegramUrl;
       document.getElementById('newsletter-link').textContent = t.newsletter;
+      document.getElementById('skill-title').textContent = t.skillTitle;
+      document.getElementById('skill-text').textContent = t.skillText;
+      document.getElementById('skill-link').textContent = t.skillButton;
       status.textContent = '';
     }
 
