@@ -19,6 +19,9 @@
     body { margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.6; }
     .container { width:min(900px, calc(100% - 32px)); margin:auto; padding:24px 0 48px; }
     header { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:36px; }
+    .header-nav { display:flex; align-items:center; gap:16px; min-width:0; }
+    .back-button { color:var(--text); text-decoration:none; font-weight:700; white-space:nowrap; }
+    .back-button:hover { color:var(--accent); }
     .logo { display:flex; align-items:center; gap:10px; color:var(--accent); text-decoration:none; font-size:1.25rem; font-weight:800; }
     .logo img { width:42px; height:42px; object-fit:cover; border-radius:8px; }
     select { border:1px solid #e2e8f0; border-radius:10px; padding:10px 36px 10px 12px; background:white; color:var(--text); font-weight:600; }
@@ -51,7 +54,10 @@
 <body>
   <div class="container">
     <header>
-      <a class="logo" href="/"><img src="/topgit.jpg?v=4" alt="TOP GIT"><span>TOP GIT</span></a>
+      <div class="header-nav">
+        <a class="back-button" href="/" id="back-button">←</a>
+        <a class="logo" href="/"><img src="/topgit.jpg?v=4" alt="TOP GIT"><span>TOP GIT</span></a>
+      </div>
       <select id="language" aria-label="Language">
         <option value="en">🇺🇸 English</option>
         <option value="es">🇪🇸 Español</option>
@@ -103,6 +109,7 @@
       en: {
         skillTitle: "TOPGit AI Skill",
         skillLead: "Search and browse TOPGit bookmarks with natural language. Designed for AI agents like Hermes, OpenClaw, and Claude.",
+        backButton: "← Back",
         tabOverview: "Overview",
         tabApi: "API",
         tabExamples: "Examples",
@@ -125,6 +132,7 @@
       es: {
         skillTitle: "Skill de TOPGit para IA",
         skillLead: "Busca y explora bookmarks de TOPGit con lenguaje natural. Diseñado para agentes de IA como Hermes, OpenClaw y Claude.",
+        backButton: "← Volver",
         tabOverview: "Descripción",
         tabApi: "API",
         tabExamples: "Ejemplos",
@@ -147,6 +155,7 @@
       it: {
         skillTitle: "Skill TOPGit per IA",
         skillLead: "Cerca e sfoglia i bookmark di TOPGit con linguaggio naturale. Progettato per agenti IA come Hermes, OpenClaw e Claude.",
+        backButton: "← Indietro",
         tabOverview: "Panoramica",
         tabApi: "API",
         tabExamples: "Esempi",
@@ -169,6 +178,7 @@
       "pt-br": {
         skillTitle: "Skill TOPGit para IA",
         skillLead: "Pesquise e navegue pelos bookmarks do TOPGit com linguagem natural. Projetado para agentes de IA como Hermes, OpenClaw e Claude.",
+        backButton: "← Voltar",
         tabOverview: "Visão Geral",
         tabApi: "API",
         tabExamples: "Exemplos",
@@ -217,6 +227,7 @@
 
       document.getElementById('skill-title').textContent = t.skillTitle;
       document.getElementById('skill-lead').textContent = t.skillLead;
+      document.getElementById('back-button').textContent = t.backButton;
       document.getElementById('tab-overview').textContent = t.tabOverview;
       document.getElementById('tab-api').textContent = t.tabApi;
       document.getElementById('tab-examples').textContent = t.tabExamples;
